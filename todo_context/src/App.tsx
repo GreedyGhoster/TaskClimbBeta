@@ -1,30 +1,21 @@
 import "./Style.css";
-import Learning from "./Learning";
+import { useContext, createContext } from "react";
 
 export default function App() {
-  const UserName: string = "Ivan";
-  interface Informations {
-    color: string;
-    age: number;
-    activity: boolean | string;
-  }
-  const MyInformation: Informations = {
-    color: "Purple",
-    age: 16,
-    activity: false,
+  // значение по умолчанию
+  const MyContext = createContext("I'm not the boss");
+  const Greeting = () => {
+    // использование MyContext
+    const user = useContext(MyContext);
+    return `Hello, ${user}`;
   };
-  MyInformation.activity === true
-    ? (MyInformation.activity = "Programmer")
-    : (MyInformation.activity = "Pre-programmer");
-  const Car = (age: number) => (age >= 18 ? "OK" : "No");
   return (
     <>
-      <h1>{UserName}</h1>
-      <h2>
-        {` Color: ${MyInformation.color}, Age:  ${MyInformation.age}, Activity: ${MyInformation.activity}`}
-      </h2>
-      <h3>{`License: ${Car(MyInformation.age)}`}</h3>
-      <Learning />
+      {/* value нужен для добавления нового значения */}
+      {/* Если закоментировать MyContext, то мы получим значение по умолчанию */}
+      {/* <MyContext.Provider value="I'm the boss"> */}
+      <Greeting />
+      {/* </MyContext.Provider> */}
     </>
   );
 }
