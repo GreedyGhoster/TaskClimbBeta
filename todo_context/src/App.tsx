@@ -1,21 +1,12 @@
 import "./Style.css";
-import { useContext, createContext } from "react";
+import Content from "./components/Content";
+import Sidebar from "./components/Sidebar";
 
 export default function App() {
-  // значение по умолчанию
-  const MyContext = createContext("I'm not the boss");
-  const Greeting = () => {
-    // использование MyContext
-    const user = useContext(MyContext);
-    return `Hello, ${user}`;
-  };
   return (
-    <>
-      {/* value нужен для добавления нового значения */}
-      {/* Если закоментировать MyContext, то мы получим значение по умолчанию */}
-      {/* <MyContext.Provider value="I'm the boss"> */}
-      <Greeting />
-      {/* </MyContext.Provider> */}
-    </>
+    <div className="app">
+      <Sidebar />
+      <Content />
+    </div>
   );
 }
