@@ -2,7 +2,10 @@
 body {
   margin: auto;
   background-color: #202020;
+  overflow: auto;
+  height: 100%;
 }
+
 /* Стили для темной темы */
 .content-dark,
 .sidebar-dark {
@@ -12,23 +15,121 @@ body {
 .sidebar-dark {
   text-align: center;
   position: fixed;
-  background-color: #242424;
+  background-color: #2e2e2e;
   float: left;
-  height: 100rem;
+  height: 100vh;
   width: 10%;
 }
+
 .content-dark {
   text-align: center;
   background-color: #202020;
-  height: 100rem;
+  height: 100vh;
   width: 90%;
   float: right;
 }
-.titles {
+
+.titles-dark {
   color: rgb(201, 201, 201);
   font-size: 2rem;
   letter-spacing: 1px;
 }
-.title-1 {
+
+.title-1-dark {
   height: 3.2rem;
+}
+
+.title-1-dark h2 {
+  font-weight: normal;
+}
+
+.tools {
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.search-bar,
+.adding-bar {
+  width: 50%;
+  margin: 4rem 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  background: #343434;
+  margin-bottom: 0.4rem;
+}
+
+.search-bar input,
+.adding-bar input {
+  flex: 1;
+  border: none;
+  font-size: 1.5rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+  padding-right: 1rem;
+
+  outline: none;
+  color: rgb(210, 210, 210);
+  background: #343434;
+}
+
+.search-bar-img,
+.adding-bar-img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: opacity 300ms ease;
+}
+
+.search-bar-img:hover,
+.adding-bar-img:hover {
+  opacity: 0.6;
+}
+
+.theme-changer {
+  margin: auto;
+  padding-bottom: 0.3%;
+}
+.theme-changer-img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: opacity 300ms ease;
+}
+.theme-changer-img:hover {
+  opacity: 0.6;
+}
+
+.todo {
+  margin-top: 3%;
+}
+
+.task-line {
+  margin-top: 1%;
+  display: inline-flex;
+  width: 43%;
+  height: 1.6rem;
+  border-bottom: 1px groove rgb(203, 203, 203);
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+}
+.hashtag {
+  height: auto;
+  width: 10%;
+}
+.task-name {
+  height: auto;
+  width: 43%;
+}
+.status,
+.edit,
+.remove {
+  height: auto;
+  width: 15%;
 }
