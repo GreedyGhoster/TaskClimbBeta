@@ -119,17 +119,91 @@ body {
   font-family: var(--font-raleway);
   font-weight: 500;
 }
-.hashtag {
-  height: auto;
-  width: 10%;
-}
 .task-name {
   height: auto;
-  width: 43%;
+  width: 50%;
 }
 .status,
 .edit,
 .remove {
   height: auto;
-  width: 15%;
+  width: 17%;
+}
+
+.task-form {
+  margin: auto;
+  width: 43%;
+  height: auto;
+}
+
+.tasks {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+
+.task {
+  display: inline-flex;
+  width: -moz-available;
+  /* align-self: center; */
+  /* flex-direction: row; */
+  /* justify-content: space-around; */
+  margin: 4rem 0 2rem;
+  padding-top: 6rem;
+  height: 2rem;
+  margin: auto;
+  padding: 0.6rem 1rem;
+  border-bottom: #343739 groove 1px;
+  background-color: #202020;
+}
+
+.complete {
+  text-decoration: line-through;
+}
+
+.task-delete-icon {
+  padding-top: 0.3%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: 0.4s;
+}
+
+.task-delete-icon:hover {
+  color: red;
+}
+
+.task-edit-icon {
+  padding-top: 0.3%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: 0.4s;
+}
+
+.task-edit-icon:hover {
+  color: rgb(2, 255, 2);
+}
+
+.task-do-text {
+  color: #ebebeb;
+  margin: auto;
+  padding-top: 0.4%;
+}
+
+.task-do {
+  height: 100%;
+  width: 50%;
+  padding-right: 2%;
+}
+
+.task-edit-form,
+.task-delete-form,
+.button-status {
+  height: auto;
+  width: 17%;
 }
