@@ -4,41 +4,58 @@ import Button from "@mui/material/Button";
 import { MdModeEditOutline } from "react-icons/md";
 import { TaskContext } from "./ToDo";
 export default function Task() {
+  const [status, setStatus] = useState("Todo");
+  const [onChangeStatus, setOnChangeStatus] = useState(true);
   const [taskComplete, setTaskComplete] = useState(false);
   const [taskVisible, setTaskVisible] = useState(true);
   const task = useContext(TaskContext);
+  const ColorChange = () => {
+    if (status === "Todo") {
+      return "error";
+    } else if (status === "Doing") {
+      return "secondary";
+    } else {
+      return "success";
+    }
+  };
+  const StatusChange = () => {
+    setOnChangeStatus(!onChangeStatus);
+    if (onChangeStatus === true) {
+      setTaskComplete(false);
+      setStatus("Doing");
+    } else {
+      setTaskComplete(true);
+      setStatus("Done");
+    }
+  };
+
   return (
     <>
       {taskVisible === true ? (
-        <div className="task-form">
-          <div className="task">
-            <div className="task-do">
-              <h3
-                className={
-                  taskComplete ? "task-do-text complete" : "task-do-text"
-                }
-              >
-                {task}
-              </h3>
-            </div>
-            <div className="button-status-form">
-              <Button color="secondary" variant="outlined">
-                Todo
-              </Button>
-            </div>
-
-            <div className="task-edit-form">
-              <MdModeEditOutline
-                onClick={() => setTaskComplete(!taskComplete)}
-                className="task-edit-icon"
-              />
-            </div>
-            <div className="task-delete-form">
-              <MdDeleteForever
-                className="task-delete-icon"
-                onClick={() => setTaskVisible(!taskVisible)}
-              />{" "}
-            </div>
+        <div className="task">
+          <div className={taskComplete ? "task-do complete" : "task-do"}>
+            {task}
+          </div>
+          <div className="status">
+            <Button
+              color={ColorChange()}
+              variant="outlined"
+              onClick={StatusChange}
+            >
+              {status}
+            </Button>
+          </div>
+          <div className="edit">
+            <MdModeEditOutline
+              // onClick={() => }
+              className="task-edit-icon"
+            />
+          </div>
+          <div className="remove">
+            <MdDeleteForever
+              className="task-delete-icon"
+              onClick={() => setTaskVisible(!taskVisible)}
+            />
           </div>
         </div>
       ) : null}

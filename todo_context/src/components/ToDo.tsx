@@ -5,7 +5,7 @@ import { useState, createContext } from "react";
 export const TaskContext = createContext("");
 import Task from "./Task";
 export default function ToDo() {
-  const [todos, setTodos]: [any[], any] = useState([]);
+  const [todos, setTodos]: [string[], any] = useState([]);
   const [todo, setTodo]: [string, any] = useState("");
   const addTask = (todo: string) => {
     if (todo !== "") {
@@ -16,30 +16,14 @@ export default function ToDo() {
   return (
     <div className="todo">
       <div className="tools">
-        <div
-          className="search-bar"
-          // onKeyDown={(ev) => {
-          //   if (ev.keyCode == 13) {
-          //     addTask(todo);
-          //   }
-          // }}
-        >
-          <input
-            type="text"
-            placeholder="Find the task"
-            maxLength={15}
-            // value={todo}
-            // onChange={(e) => setTodo(e.target.value)}
-          />
-          <AiOutlineSearch
-            className="search-bar-img"
-            // onClick={() => addTask(todo)}
-          />
+        <div className="search-bar">
+          <input type="text" placeholder="Find the task" maxLength={15} />
+          <AiOutlineSearch className="search-bar-img" />
         </div>
         <div
           className="adding-bar"
-          onKeyDown={(ev) => {
-            if (ev.keyCode == 13) {
+          onKeyDown={(e) => {
+            if (e.keyCode == 13) {
               addTask(todo);
             }
           }}
@@ -68,11 +52,17 @@ export default function ToDo() {
         <div className="remove">Remove</div>
       </div>
       <div className="tasks">
-        {todos.map((task, index) => (
-          <TaskContext.Provider key={index} value={task}>
-            <Task />
-          </TaskContext.Provider>
-        ))}
+        {todos.length > 0 ? (
+          <>
+            {todos.map((task, index) => (
+              <TaskContext.Provider key={index} value={task}>
+                <Task />
+              </TaskContext.Provider>
+            ))}
+          </>
+        ) : (
+          <h2 className="empty-tasks">No tasks</h2>
+        )}
       </div>
     </div>
   );
