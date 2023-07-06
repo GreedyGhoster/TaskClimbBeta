@@ -5,13 +5,15 @@ import { MdModeEditOutline } from "react-icons/md";
 import { TaskContext } from "./ToDo";
 export default function Task() {
   const [status, setStatus] = useState("Todo");
+  const [taskChange, setTaskChange] = useState(false);
   const [onChangeStatus, setOnChangeStatus] = useState(true);
   const [taskComplete, setTaskComplete] = useState(false);
   const [taskVisible, setTaskVisible] = useState(true);
-  const task = useContext(TaskContext);
+  const [newTask, setNewTask] = useState("");
+  let task = useContext(TaskContext);
   const ColorChange = () => {
     if (status === "Todo") {
-      return "error";
+      return "primary";
     } else if (status === "Doing") {
       return "secondary";
     } else {
@@ -33,9 +35,22 @@ export default function Task() {
     <>
       {taskVisible === true ? (
         <div className="task">
-          <div className={taskComplete ? "task-do complete" : "task-do"}>
-            {task}
-          </div>
+          {taskChange === false ? (
+            <div className={taskComplete ? "task-do complete" : "task-do"}>
+              {taskChange === false ? task : (task = newTask)}
+            </div>
+          ) : (
+            <div className="task-change">
+              <input
+                placeholder={task}
+                value={newTask}
+                type="text"
+                maxLength={15}
+                onChange={(e) => setNewTask(e.target.value)}
+              />
+            </div>
+          )}
+
           <div className="status">
             <Button
               color={ColorChange()}
@@ -47,7 +62,7 @@ export default function Task() {
           </div>
           <div className="edit">
             <MdModeEditOutline
-              // onClick={() => }
+              onClick={() => setTaskChange(!taskChange)}
               className="task-edit-icon"
             />
           </div>

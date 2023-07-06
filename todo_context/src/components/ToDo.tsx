@@ -1,12 +1,18 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { VscColorMode } from "react-icons/vsc";
-import { useState, createContext } from "react";
+import { useState, createContext, useMemo } from "react";
 export const TaskContext = createContext("");
 import Task from "./Task";
 export default function ToDo() {
   const [todos, setTodos]: [string[], any] = useState([]);
+  const [query, setQuery] = useState("");
   const [todo, setTodo]: [string, any] = useState("");
+  const filteredItems = useMemo(() => {
+    return todos.filter((item) => {
+      return item.toLocaleLowerCase().includes(query.toLocaleLowerCase());
+    });
+  }, [todos, query]);
   const addTask = (todo: string) => {
     if (todo !== "") {
       setTodos([...todos, todo]);
@@ -17,13 +23,19 @@ export default function ToDo() {
     <div className="todo">
       <div className="tools">
         <div className="search-bar">
-          <input type="text" placeholder="Find the task" maxLength={15} />
+          <input
+            type="search"
+            value={query}
+            placeholder="Find the task"
+            maxLength={15}
+            onChange={(e) => setQuery(e.target.value)}
+          />
           <AiOutlineSearch className="search-bar-img" />
         </div>
         <div
           className="adding-bar"
           onKeyDown={(e) => {
-            if (e.keyCode == 13) {
+            if (e.key == "Enter") {
               addTask(todo);
             }
           }}
@@ -54,7 +66,7 @@ export default function ToDo() {
       <div className="tasks">
         {todos.length > 0 ? (
           <>
-            {todos.map((task, index) => (
+            {filteredItems.map((task, index) => (
               <TaskContext.Provider key={index} value={task}>
                 <Task />
               </TaskContext.Provider>
