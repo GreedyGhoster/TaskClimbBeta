@@ -1,6 +1,5 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
-import { VscColorMode } from "react-icons/vsc";
 import { useState, createContext, useMemo } from "react";
 export const TaskContext = createContext("");
 import Task from "./Task";
@@ -51,9 +50,6 @@ export default function ToDo() {
             className="adding-bar-img"
             onClick={() => addTask(todo)}
           />
-        </div>
-        <div className="theme-changer">
-          <VscColorMode className="theme-changer-img" />
         </div>
       </div>
       <br />

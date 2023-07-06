@@ -3,6 +3,7 @@ import { MdDeleteForever } from "react-icons/md";
 import Button from "@mui/material/Button";
 import { MdModeEditOutline } from "react-icons/md";
 import { TaskContext } from "./ToDo";
+
 export default function Task() {
   const [status, setStatus] = useState("Todo");
   const [taskChange, setTaskChange] = useState(false);
@@ -10,7 +11,7 @@ export default function Task() {
   const [taskComplete, setTaskComplete] = useState(false);
   const [taskVisible, setTaskVisible] = useState(true);
   const [newTask, setNewTask] = useState("");
-  let task = useContext(TaskContext);
+  const task = useContext(TaskContext);
   const ColorChange = () => {
     if (status === "Todo") {
       return "primary";
@@ -30,14 +31,13 @@ export default function Task() {
       setStatus("Done");
     }
   };
-
   return (
     <>
       {taskVisible === true ? (
         <div className="task">
           {taskChange === false ? (
             <div className={taskComplete ? "task-do complete" : "task-do"}>
-              {taskChange === false ? task : (task = newTask)}
+              {task}
             </div>
           ) : (
             <div className="task-change">
@@ -46,7 +46,9 @@ export default function Task() {
                 value={newTask}
                 type="text"
                 maxLength={15}
-                onChange={(e) => setNewTask(e.target.value)}
+                onChange={(e) => {
+                  setNewTask(e.target.value);
+                }}
               />
             </div>
           )}

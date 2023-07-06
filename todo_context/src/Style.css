@@ -90,21 +90,6 @@ body {
   opacity: 0.6;
 }
 
-.theme-changer {
-  margin: auto;
-  padding-bottom: 0.3%;
-}
-.theme-changer-img {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  color: whitesmoke;
-  transition: opacity 300ms ease;
-}
-.theme-changer-img:hover {
-  opacity: 0.6;
-}
-
 .todo {
   margin-top: 3%;
 }
