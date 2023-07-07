@@ -13,7 +13,7 @@ export default function ToDo() {
     });
   }, [todos, query]);
   const addTask = (todo: string) => {
-    if (todo !== "") {
+    if (todo.trim() !== "") {
       setTodos([...todos, todo]);
       setTodo("");
     }

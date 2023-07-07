@@ -187,3 +187,20 @@ body {
   height: auto;
   width: 17%;
 }
+
+.task-change {
+  width: 50%;
+  margin: auto;
+}
+
+.task-change input {
+  align-items: center;
+  color: rgb(210, 210, 210);
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+  text-align: center;
+  outline: groove #ebebeb 1px;
+  border: none;
+  background-color: #202020;
+}

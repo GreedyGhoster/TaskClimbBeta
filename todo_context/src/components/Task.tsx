@@ -11,8 +11,8 @@ export default function Task() {
   const [taskComplete, setTaskComplete] = useState(false);
   const [taskVisible, setTaskVisible] = useState(true);
   const [onTaskChanged, setOnTaskChanged] = useState(true);
-  let [newTask, setNewTask] = useState("");
-  let task = useContext(TaskContext);
+  let defaultTask = useContext(TaskContext);
+  let [newTask, setNewTask] = useState(defaultTask);
   const ColorChange = () => {
     if (status === "Todo") {
       return "primary";
@@ -39,12 +39,12 @@ export default function Task() {
         <div className="task">
           {taskChange === false ? (
             <div className={taskComplete ? "task-do complete" : "task-do"}>
-              {onTaskChanged ? task : newTask}
+              {onTaskChanged ? defaultTask : newTask}
             </div>
           ) : (
             <div className="task-change">
               <input
-                placeholder={task}
+                placeholder="New task"
                 value={newTask}
                 type="text"
                 maxLength={15}
@@ -67,7 +67,11 @@ export default function Task() {
           </div>
           <div className="edit">
             <MdModeEditOutline
-              onClick={() => setTaskChange(!taskChange)}
+              onClick={() => {
+                newTask.trim() !== ""
+                  ? setTaskChange(!taskChange)
+                  : setTaskChange(taskChange);
+              }}
               className="task-edit-icon"
             />
           </div>
