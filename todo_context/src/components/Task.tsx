@@ -10,8 +10,9 @@ export default function Task() {
   const [onChangeStatus, setOnChangeStatus] = useState(true);
   const [taskComplete, setTaskComplete] = useState(false);
   const [taskVisible, setTaskVisible] = useState(true);
-  const [newTask, setNewTask] = useState("");
-  const task = useContext(TaskContext);
+  const [onTaskChanged, setOnTaskChanged] = useState(true);
+  let [newTask, setNewTask] = useState("");
+  let task = useContext(TaskContext);
   const ColorChange = () => {
     if (status === "Todo") {
       return "primary";
@@ -31,13 +32,14 @@ export default function Task() {
       setStatus("Done");
     }
   };
+
   return (
     <>
       {taskVisible === true ? (
         <div className="task">
           {taskChange === false ? (
             <div className={taskComplete ? "task-do complete" : "task-do"}>
-              {task}
+              {onTaskChanged ? task : newTask}
             </div>
           ) : (
             <div className="task-change">
@@ -47,6 +49,7 @@ export default function Task() {
                 type="text"
                 maxLength={15}
                 onChange={(e) => {
+                  setOnTaskChanged(false);
                   setNewTask(e.target.value);
                 }}
               />
