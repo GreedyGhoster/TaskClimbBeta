@@ -1,1 +1,1 @@
-export * from "./ToDoListPage";
+export { default } from "./ToDoListPage";

@@ -1,4 +1,4 @@
-import ToDo from "../ToDoForm/ToDoForm";
+import ToDoForm from "../ToDoForm";
 
 export default function Content() {
   return (
@@ -9,7 +9,7 @@ export default function Content() {
         </div>
         <span>Just do it!</span>
       </div>
-      <ToDo />
+      <ToDoForm />
     </div>
   );
 }

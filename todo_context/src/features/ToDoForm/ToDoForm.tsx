@@ -1,11 +1,10 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useState, createContext, useMemo } from "react";
-import Task from "../ToDoItem/ToDoItem";
+import { useState, useMemo } from "react";
+import { TaskContext } from "../../context/TaskContext";
+import ToDoItem from "../ToDoItem";
 
-export const TaskContext = createContext("");
-
-export default function ToDo() {
+export default function ToDoForm() {
   const [todos, setTodos]: [string[], any] = useState([]);
   const [query, setQuery] = useState("");
   const [todo, setTodo]: [string, any] = useState("");
@@ -66,7 +65,7 @@ export default function ToDo() {
           <>
             {filteredItems.map((task, index) => (
               <TaskContext.Provider key={index} value={task}>
-                <Task />
+                <ToDoItem />
               </TaskContext.Provider>
             ))}
           </>

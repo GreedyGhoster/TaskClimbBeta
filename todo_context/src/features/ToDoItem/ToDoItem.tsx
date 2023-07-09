@@ -2,9 +2,9 @@ import { useState, useContext } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import Button from "@mui/material/Button";
 import { MdModeEditOutline } from "react-icons/md";
-import { TaskContext } from "../ToDoForm/ToDoForm";
+import { TaskContext } from "../../context/TaskContext";
 
-export default function Task() {
+export default function ToDoItem() {
   const [status, setStatus] = useState("Todo");
   const [taskChange, setTaskChange] = useState(false);
   const [onChangeStatus, setOnChangeStatus] = useState(true);
