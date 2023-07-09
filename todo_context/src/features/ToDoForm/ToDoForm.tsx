@@ -1,8 +1,10 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState, createContext, useMemo } from "react";
+import Task from "../ToDoItem/ToDoItem";
+
 export const TaskContext = createContext("");
-import Task from "./Task";
+
 export default function ToDo() {
   const [todos, setTodos]: [string[], any] = useState([]);
   const [query, setQuery] = useState("");

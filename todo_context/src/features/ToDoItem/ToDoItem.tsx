@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import Button from "@mui/material/Button";
 import { MdModeEditOutline } from "react-icons/md";
-import { TaskContext } from "./ToDo";
+import { TaskContext } from "../ToDoForm/ToDoForm";
 
 export default function Task() {
   const [status, setStatus] = useState("Todo");
@@ -11,7 +11,7 @@ export default function Task() {
   const [taskComplete, setTaskComplete] = useState(false);
   const [taskVisible, setTaskVisible] = useState(true);
   const [onTaskChanged, setOnTaskChanged] = useState(true);
-  let defaultTask = useContext(TaskContext);
+  const defaultTask = useContext(TaskContext);
   let [newTask, setNewTask] = useState(defaultTask);
   const ColorChange = () => {
     if (status === "Todo") {
@@ -42,7 +42,16 @@ export default function Task() {
               {onTaskChanged ? defaultTask : newTask}
             </div>
           ) : (
-            <div className="task-change">
+            <div
+              className="task-change"
+              onKeyDown={(e) => {
+                if (e.key == "Enter") {
+                  newTask.trim() !== ""
+                    ? setTaskChange(!taskChange)
+                    : setTaskChange(taskChange);
+                }
+              }}
+            >
               <input
                 placeholder="New task"
                 value={newTask}
