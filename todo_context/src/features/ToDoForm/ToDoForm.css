@@ -1,0 +1,84 @@
+.todo {
+  margin-top: 3%;
+}
+
+.tools {
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.search-bar,
+.adding-bar {
+  width: 50%;
+  margin: 4rem 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  background: #343434;
+  margin-bottom: 0.4rem;
+}
+
+.search-bar input,
+.adding-bar input {
+  flex: 1;
+  border: none;
+  font-size: 1.5rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+  padding-right: 1rem;
+
+  outline: none;
+  color: rgb(210, 210, 210);
+  background: #343434;
+}
+
+.search-bar-img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: opacity 300ms ease;
+}
+
+.search-bar-img:hover {
+  opacity: 0.6;
+}
+
+.task-line {
+  margin-top: 1%;
+  display: inline-flex;
+  width: 43%;
+  height: 1.6rem;
+  border-bottom: 1px groove rgb(203, 203, 203);
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+}
+.task-name {
+  height: auto;
+  width: 50%;
+}
+.status,
+.edit,
+.remove {
+  height: auto;
+  width: 17%;
+}
+
+.tasks {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+
+.empty-tasks {
+  color: #ebebeb;
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+}

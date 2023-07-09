@@ -1,0 +1,85 @@
+.task {
+  display: inline-flex;
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+  justify-content: center;
+  width: 43%;
+  height: 3rem;
+  border-bottom: #343739 groove 1px;
+  margin: auto;
+  align-items: center;
+}
+
+.task {
+  display: inline-flex;
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+  justify-content: center;
+  width: 43%;
+  height: 3rem;
+  border-bottom: #343739 groove 1px;
+  margin: auto;
+  align-items: center;
+}
+
+.complete {
+  color: #919191;
+  text-decoration: line-through;
+}
+
+.task-delete-icon {
+  padding-top: 0.3%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: 0.4s;
+}
+
+.task-delete-icon:hover {
+  color: red;
+}
+
+.task-edit-icon {
+  padding-top: 0.3%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: 0.4s;
+}
+
+.task-edit-icon:hover {
+  color: #ff8c1a;
+}
+
+.task-do {
+  width: 50%;
+  margin: auto;
+}
+
+.task-edit-form,
+.task-delete-form,
+.button-status {
+  height: auto;
+  width: 17%;
+}
+
+.task-change {
+  width: 50%;
+  margin: auto;
+}
+
+.task-change input {
+  align-items: center;
+  color: rgb(210, 210, 210);
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+  text-align: center;
+  outline: groove #cacaca 1px;
+  border: none;
+  background-color: #202020;
+}

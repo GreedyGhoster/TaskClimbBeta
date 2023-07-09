@@ -1,0 +1,7 @@
+/* Общие стили */
+body {
+  margin: auto;
+  background-color: #202020;
+  overflow: auto;
+  height: 100%;
+}

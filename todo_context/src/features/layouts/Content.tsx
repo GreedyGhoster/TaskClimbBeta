@@ -1,14 +1,11 @@
 import ToDoForm from "../ToDoForm";
+import Title from "../../components/Title";
+import "./layouts.css";
 
 export default function Content() {
   return (
-    <div className="content-dark">
-      <div className="titles-dark">
-        <div className="title-1-dark">
-          <h2>ToDo List</h2>
-        </div>
-        <span>Just do it!</span>
-      </div>
+    <div className="content">
+      <Title />
       <ToDoForm />
     </div>
   );

@@ -2,6 +2,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState, useMemo } from "react";
 import { TaskContext } from "../../context/TaskContext";
+import "./todoform.css";
 import ToDoItem from "../ToDoItem";
 
 export default function ToDoForm() {

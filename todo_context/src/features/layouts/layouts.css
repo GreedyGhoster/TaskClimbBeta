@@ -1,0 +1,33 @@
+.content,
+.sidebar {
+  color: #ebebeb;
+}
+
+.sidebar {
+  text-align: center;
+  position: fixed;
+  background-color: #2e2e2e;
+  float: left;
+  height: 100vh;
+  width: 13%;
+}
+
+.content {
+  text-align: center;
+  background-color: #202020;
+  height: 100vh;
+  width: 87%;
+  float: right;
+}
+
+.adding-bar-img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: whitesmoke;
+  transition: opacity 300ms ease;
+}
+
+.adding-bar-img:hover {
+  opacity: 0.6;
+}

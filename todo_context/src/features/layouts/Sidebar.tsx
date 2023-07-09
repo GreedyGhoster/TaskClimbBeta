@@ -1,4 +1,5 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import "./layouts.css";
 export default function Sidebar() {
   return (
     <div className="sidebar">
