@@ -1,0 +1,21 @@
+.adding-project {
+  margin-top: 2%;
+  width: 85%;
+  height: 3vh;
+  border: none;
+  outline: none;
+  color: rgb(210, 210, 210);
+  background: #343434;
+  border-radius: 0.4rem;
+  background: #343434;
+}
+
+.pages {
+  text-align: left;
+}
+
+.link {
+  color: #ebebeb;
+  font-size: larger;
+  text-decoration: none;
+}

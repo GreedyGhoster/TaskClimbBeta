@@ -1,12 +1,12 @@
-import ToDoForm from "../ToDoForm";
-import Title from "../../components/Title";
+import TitleContent from "../../components/TitleContent";
+import Router from "../../routes/Router";
 import "./layouts.css";
 
 export default function Content() {
   return (
     <div className="content">
-      <Title />
-      <ToDoForm />
+      <TitleContent />
+      <Router />
     </div>
   );
 }

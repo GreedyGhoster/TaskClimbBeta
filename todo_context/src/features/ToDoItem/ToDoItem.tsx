@@ -13,7 +13,7 @@ export default function ToDoItem() {
   const [taskVisible, setTaskVisible] = useState(true);
   const [onTaskChanged, setOnTaskChanged] = useState(true);
   const defaultTask = useContext(TaskContext);
-  let [newTask, setNewTask] = useState(defaultTask);
+  const [newTask, setNewTask] = useState(defaultTask);
   const ColorChange = () => {
     if (status === "Todo") {
       return "primary";
@@ -36,7 +36,7 @@ export default function ToDoItem() {
 
   return (
     <>
-      {taskVisible === true ? (
+      {taskVisible && (
         <div className="task">
           {taskChange === false ? (
             <div className={taskComplete ? "task-do complete" : "task-do"}>
@@ -92,7 +92,7 @@ export default function ToDoItem() {
             />
           </div>
         </div>
-      ) : null}
+      )}
     </>
   );
 }

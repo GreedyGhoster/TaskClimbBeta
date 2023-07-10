@@ -9,17 +9,19 @@ export default function ToDoForm() {
   const [todos, setTodos]: [string[], any] = useState([]);
   const [query, setQuery] = useState("");
   const [todo, setTodo]: [string, any] = useState("");
-  const filteredItems = useMemo(() => {
-    return todos.filter((item) => {
-      return item.toLocaleLowerCase().includes(query.toLocaleLowerCase());
-    });
-  }, [todos, query]);
   const addTask = (todo: string) => {
     if (todo.trim() !== "") {
       setTodos([...todos, todo]);
       setTodo("");
     }
   };
+
+  const filteredItems = useMemo(() => {
+    return todos.filter((item) => {
+      return item.toLocaleLowerCase().includes(query.toLocaleLowerCase());
+    });
+  }, [todos, query]);
+
   return (
     <div className="todo">
       <div className="tools">
@@ -42,6 +44,8 @@ export default function ToDoForm() {
           }}
         >
           <input
+            // BUG: Поиск ищет по старому значению в массиве, а новое значение игнорит
+            // BUG: После поиска новое значение меняется на старое значение
             type="text"
             placeholder="Enter the task"
             maxLength={15}
