@@ -1,0 +1,21 @@
+.task-line {
+  margin: auto;
+  margin-top: 1%;
+  display: inline-flex;
+  width: 43%;
+  height: 1.6rem;
+  border-bottom: 1px groove rgb(203, 203, 203);
+  font-size: 1.3rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+}
+.task-name {
+  height: auto;
+  width: 50%;
+}
+.status,
+.edit,
+.remove {
+  height: auto;
+  width: 17%;
+}

@@ -4,8 +4,9 @@ import { IToDoProject } from "../types";
 import { v4 as uuidv4 } from "uuid";
 
 function useTodoFunc() {
-  const [projects, setProjects] = useState<IToDoProject[]>([]);
-
+  const [projects, setProjects] = useState<IToDoProject[]>([
+    { id: "home", title: "Home", tasks: [] },
+  ]);
   const addProject = useCallback((projectName: string) => {
     setProjects((prev) => [
       { id: uuidv4(), title: projectName, tasks: [] },

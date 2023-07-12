@@ -62,16 +62,15 @@ export const AppSidebar = () => {
         <Typography variant="h6">Projects</Typography>
         <FormProvider {...formMethods}>
           <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
-            <FormTextField
-              sx={{
-                color: "#ebebeb",
-              }}
-              name="title"
-              placeholder="add project"
-            />
+            <FormTextField name="title" placeholder="add project" />
           </Box>
         </FormProvider>
-        <List>
+        <List
+          sx={{
+            display: "flex",
+            flexDirection: "column-reverse",
+          }}
+        >
           {projects.map((project) => (
             <ListItem key={project.id}>
               <ListItemButton

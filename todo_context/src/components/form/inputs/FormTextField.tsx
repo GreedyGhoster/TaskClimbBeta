@@ -51,7 +51,6 @@ export const FormTextField: React.FC<FormTextFieldProps> = (props) => {
       }) => (
         <TextField
           {...field}
-          color="success"
           focused
           label={label}
           inputRef={ref}

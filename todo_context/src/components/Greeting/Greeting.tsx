@@ -13,16 +13,14 @@ export default function Greeting() {
     >
       <Box
         sx={{
-          height: "4rem",
+          height: "4.5rem",
         }}
         component={"div"}
       >
-        <Box sx={{}} component={"h2"}>
-          Welcome
-        </Box>
+        <Box component={"h2"}>Welcome</Box>
       </Box>
 
-      <span>To get started, create a new project</span>
+      <span>To get started, go to "Home" or create a new project</span>
     </Box>
   );
 }
