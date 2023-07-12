@@ -1,7 +1,7 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState, useMemo } from "react";
-import { TaskContext } from "../../context/TaskContext";
+// import { TaskContext } from "../../context/useTodo";
 import ToDoItem from "../ToDoItem";
 import "./todoform.css";
 
@@ -69,9 +69,7 @@ export default function ToDoForm() {
         {todos.length > 0 ? (
           <>
             {filteredItems.map((task, index) => (
-              <TaskContext.Provider key={index} value={task}>
-                <ToDoItem />
-              </TaskContext.Provider>
+              <ToDoItem />
             ))}
           </>
         ) : (
