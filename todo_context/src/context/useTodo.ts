@@ -21,16 +21,22 @@ function useTodoFunc() {
     [projects]
   );
 
-  const addTask = useCallback((projectId: string, taskName: string) => {
-    setProjects((prev) => {
-      const next = [...prev];
-      const project = next.find((project) => project.id === projectId);
-      if (project) {
-        project.tasks = [{ title: taskName, id: uuidv4() }, ...project.tasks];
-      }
-      return next;
-    });
-  }, []);
+  const addTask = useCallback(
+    (projectId: string, taskName: string, status: string) => {
+      setProjects((prev) => {
+        const next = [...prev];
+        const project = next.find((project) => project.id === projectId);
+        if (project) {
+          project.tasks = [
+            { title: taskName, id: uuidv4(), status: status },
+            ...project.tasks,
+          ];
+        }
+        return next;
+      });
+    },
+    []
+  );
 
   return useMemo(
     () => ({

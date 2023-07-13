@@ -5,4 +5,5 @@ export interface AddToDoTaskFormValues {
 export interface IToDoTask {
   id: string;
   title: string;
+  status: string;
 }

@@ -1,20 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useTodo } from "../../context";
 import { NotFound } from "../NotFound";
-import {
-  Box,
-  Button,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Box, List } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoTaskFormValues } from "../../types";
 import { FormTextField } from "../../components/form";
 import { useCallback } from "react";
 import TitleContent from "../../components/TitleContent";
 import "./projectpage.css";
+import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
   const { findProject, addTask } = useTodo();
@@ -30,7 +24,7 @@ export function ProjectPage() {
   const handleSubmitForm = useCallback(
     async (values: AddToDoTaskFormValues) => {
       if (values.title.trim() !== "") {
-        addTask(projectId!, values.title);
+        addTask(projectId!, values.title, status);
         reset({ title: "" });
       }
     },
@@ -132,73 +126,7 @@ export function ProjectPage() {
         }}
       >
         {project.tasks.map((task) => (
-          <ListItem
-            sx={{
-              height: "3rem",
-              margin: "auto",
-              width: "43%",
-              padding: "0",
-              borderBottom: "1px groove #343739",
-              fontSize: "1.3rem",
-              textAlign: "center",
-            }}
-            key={task.id}
-          >
-            <ListItemButton
-              sx={{
-                textAlign: "center",
-                padding: "0",
-                width: "50%",
-              }}
-              href={`/tasks/${projectId}/${task.id}`}
-            >
-              <ListItemText
-                sx={{
-                  padding: "0",
-                }}
-                primary={task.title}
-              />
-            </ListItemButton>
-            <Box
-              sx={{
-                height: "auto",
-                width: "20%",
-                margin: "auto",
-                padding: "0",
-              }}
-              component={"div"}
-            >
-              <Button variant="outlined" color="primary">
-                Status
-              </Button>
-            </Box>
-            <Box
-              sx={{
-                height: "auto",
-                width: "20%",
-                margin: "auto",
-                padding: "0",
-              }}
-              component={"div"}
-            >
-              <Button variant="outlined" color="secondary">
-                Edit
-              </Button>
-            </Box>
-            <Box
-              sx={{
-                height: "auto",
-                width: "20%",
-                margin: "auto",
-                padding: "0",
-              }}
-              component={"div"}
-            >
-              <Button variant="outlined" color="secondary">
-                Delete
-              </Button>
-            </Box>
-          </ListItem>
+          <ProjectTask key={task.id} task={task} projectId={projectId} />
         ))}
       </List>
     </Box>
