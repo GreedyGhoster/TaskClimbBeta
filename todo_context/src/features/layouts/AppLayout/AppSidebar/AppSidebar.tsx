@@ -1,13 +1,7 @@
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Box, List, Typography } from "@mui/material";
 import { APP_SIDEBAR_WIDTH } from "./AppSidebar.constants";
 import { useTodo } from "../../../../context";
+import { SidebarProject } from "../SidebarProject";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoProjectFormValues } from "../../../../types";
 import { useCallback } from "react";
@@ -62,7 +56,11 @@ export const AppSidebar = () => {
         <Typography variant="h6">Projects</Typography>
         <FormProvider {...formMethods}>
           <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
-            <FormTextField name="title" placeholder="add project" />
+            <FormTextField
+              inputProps={{ maxLength: 20 }}
+              name="title"
+              placeholder="add project"
+            />
           </Box>
         </FormProvider>
         <List
@@ -72,14 +70,11 @@ export const AppSidebar = () => {
           }}
         >
           {projects.map((project) => (
-            <ListItem key={project.id}>
-              <ListItemButton
-                selected={project.id === projectId}
-                href={project.id}
-              >
-                <ListItemText primary={project.title}></ListItemText>
-              </ListItemButton>
-            </ListItem>
+            <SidebarProject
+              key={project.id}
+              project={project}
+              projectId={projectId}
+            />
           ))}
         </List>
       </Box>

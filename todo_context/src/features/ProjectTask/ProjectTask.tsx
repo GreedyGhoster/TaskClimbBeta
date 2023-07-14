@@ -9,8 +9,8 @@ import { changeTheme } from "../../custom/theme/changetheme";
 import { useTodo } from "../../context";
 
 export function ProjectTask({ task, projectId }: any) {
+  const { deleteTask, editTask, projects } = useTodo();
   const [taskVisible, setTaskVisible] = useState(true);
-  const { deleteTask, projects } = useTodo();
   const [onChangeStatus, setOnChangeStatus] = useState(true);
   const [taskComplete, setTaskComplete] = useState(false);
   const [status, setStatus] = useState("Todo");
@@ -57,6 +57,7 @@ export function ProjectTask({ task, projectId }: any) {
                 textAlign: "center",
                 padding: "0",
                 width: "50%",
+                overflowWrap: "break-word",
               }}
               href={`/tasks/${projectId}/${task.id}`}
             >
@@ -102,7 +103,18 @@ export function ProjectTask({ task, projectId }: any) {
                 }}
                 component={"div"}
               >
-                <Button variant="outlined" color="secondary">
+                <Button
+                  onClick={() =>
+                    editTask(
+                      projects.map((project) => project.tasks[0]),
+                      task.id,
+                      task.title,
+                      status
+                    )
+                  }
+                  variant="outlined"
+                  color="secondary"
+                >
                   Edit
                 </Button>
               </Box>
@@ -119,7 +131,7 @@ export function ProjectTask({ task, projectId }: any) {
               <Button
                 onClick={() => {
                   deleteTask(
-                    projects.map((project) => project.tasks),
+                    projects.map((project) => project.tasks[0]),
                     task.id
                   );
                   setTaskVisible(false);

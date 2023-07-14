@@ -50,7 +50,6 @@ export const FormTextField: React.FC<FormTextFieldProps> = ({
       }) => (
         <TextField
           {...field}
-          focused
           label={label}
           inputRef={ref}
           variant={variant}

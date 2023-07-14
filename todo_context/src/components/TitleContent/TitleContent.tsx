@@ -1,11 +1,31 @@
-import "./titlecontent.css";
-export default function Title() {
+import Box from "@mui/material/Box";
+
+export function TitleContent() {
   return (
-    <div className="titles-content">
-      <div className="title-content-1">
-        <h2>ToDo List</h2>
-      </div>
+    <Box
+      sx={{
+        fontSize: "2rem",
+        letterSpacing: "1px",
+        textAlign: "center",
+      }}
+      component={"div"}
+    >
+      <Box
+        sx={{
+          height: "3.2rem",
+        }}
+        component={"div"}
+      >
+        <Box
+          sx={{
+            fontWeight: "normal",
+          }}
+          component={"h2"}
+        >
+          ToDo List
+        </Box>
+      </Box>
       <span>Just do it!</span>
-    </div>
+    </Box>
   );
 }

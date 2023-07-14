@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoTaskFormValues } from "../../types";
 import { FormTextField } from "../../components/form";
 import { useCallback } from "react";
-import TitleContent from "../../components/TitleContent";
+import { TitleContent } from "../../components/TitleContent";
 import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
@@ -18,6 +18,7 @@ export function ProjectPage() {
       title: "",
     },
   });
+
   const { handleSubmit, reset } = formMethods;
 
   const handleSubmitForm = useCallback(
@@ -56,13 +57,24 @@ export function ProjectPage() {
         component={"div"}
       >
         <FormProvider {...formMethods}>
-          <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
-            <FormTextField name={"title"} placeholder="Find the task" />
+          <Box
+            component={"form"}
+            // onSubmit={}
+          >
+            <FormTextField
+              inputProps={{ maxLength: 30 }}
+              name={"title"}
+              placeholder="Find the task"
+            />
           </Box>
         </FormProvider>
         <FormProvider {...formMethods}>
           <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
-            <FormTextField name={"title"} placeholder="Add the task" />
+            <FormTextField
+              inputProps={{ maxLength: 43 }}
+              name={"title"}
+              placeholder="Add the task"
+            />
           </Box>
         </FormProvider>
       </Box>
