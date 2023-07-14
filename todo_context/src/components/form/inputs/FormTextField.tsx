@@ -15,18 +15,17 @@ export interface FormTextFieldProps
   rules?: RegisterOptions;
 }
 
-export const FormTextField: React.FC<FormTextFieldProps> = (props) => {
-  const {
-    name,
-    label,
-    control,
-    defaultValue,
-    rules,
-    type,
-    autoFocus,
-    variant,
-    ...rest
-  } = props;
+export const FormTextField: React.FC<FormTextFieldProps> = ({
+  name,
+  label,
+  control,
+  defaultValue,
+  rules,
+  type,
+  autoFocus,
+  variant,
+  ...rest
+}) => {
   const isNumber = useMemo(() => type === "number", [type]);
   const handleChange = useCallback(
     (onChange: (...event: any[]) => void, val: string | null) => {

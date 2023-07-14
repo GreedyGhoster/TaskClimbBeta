@@ -38,14 +38,21 @@ function useTodoFunc() {
     []
   );
 
+  const deleteTask = useCallback((arrayTasks: any, taskIndex: any) => {
+    const idx = arrayTasks[0].indexOf(taskIndex);
+    const deletedTasks = arrayTasks[0].splice(idx, 1);
+    return deletedTasks;
+  }, []);
+
   return useMemo(
     () => ({
       projects,
       addProject,
       findProject,
       addTask,
+      deleteTask,
     }),
-    [projects, addProject, findProject, addTask]
+    [projects, addProject, findProject, addTask, deleteTask]
   );
 }
 

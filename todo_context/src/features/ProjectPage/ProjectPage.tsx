@@ -7,7 +7,6 @@ import { AddToDoTaskFormValues } from "../../types";
 import { FormTextField } from "../../components/form";
 import { useCallback } from "react";
 import TitleContent from "../../components/TitleContent";
-import "./projectpage.css";
 import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
@@ -125,9 +124,22 @@ export function ProjectPage() {
           flexDirection: "column-reverse",
         }}
       >
-        {project.tasks.map((task) => (
-          <ProjectTask key={task.id} task={task} projectId={projectId} />
-        ))}
+        {project.tasks.length > 0 ? (
+          <>
+            {project.tasks.map((task) => (
+              <ProjectTask key={task.id} task={task} projectId={projectId} />
+            ))}
+          </>
+        ) : (
+          <Box
+            sx={{
+              textAlign: "center",
+            }}
+            component={"h2"}
+          >
+            No tasks
+          </Box>
+        )}
       </List>
     </Box>
   );
