@@ -1,7 +1,14 @@
-import { Box, List, Typography } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { APP_SIDEBAR_WIDTH } from "./AppSidebar.constants";
 import { useTodo } from "../../../../context";
-import { SidebarProject } from "../SidebarProject";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoProjectFormValues } from "../../../../types";
 import { useCallback } from "react";
@@ -70,11 +77,15 @@ export const AppSidebar = () => {
           }}
         >
           {projects.map((project) => (
-            <SidebarProject
-              key={project.id}
-              project={project}
-              projectId={projectId}
-            />
+            <ListItem key={project.id}>
+              <ListItemButton
+                selected={project.id === projectId}
+                href={project.id}
+              >
+                <ListItemText primary={project.title} />
+              </ListItemButton>
+              <DeleteForeverIcon color="error" />
+            </ListItem>
           ))}
         </List>
       </Box>

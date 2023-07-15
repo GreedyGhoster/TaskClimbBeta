@@ -1,15 +1,16 @@
 import constate from "constate";
 import { useCallback, useMemo, useState } from "react";
-import { IToDoProject } from "../types";
+import { IToDoProject, IToDoTask } from "../types";
 import { v4 as uuidv4 } from "uuid";
 
 function useTodoFunc() {
   const [projects, setProjects] = useState<IToDoProject[]>([
     { id: "home", title: "Home", tasks: [] },
   ]);
+  const [tasks, setTasks] = useState<IToDoTask[]>([]);
   const addProject = useCallback((projectName: string) => {
     setProjects((prev) => [
-      { id: uuidv4(), title: projectName, tasks: [] },
+      { id: uuidv4(), title: projectName, tasks: tasks },
       ...prev,
     ]);
   }, []);
@@ -27,10 +28,13 @@ function useTodoFunc() {
         const next = [...prev];
         const project = next.find((project) => project.id === projectId);
         if (project) {
-          project.tasks = [
-            { title: taskName, id: uuidv4(), status: status },
-            ...project.tasks,
-          ];
+          setTasks(
+            (project.tasks = [
+              { title: taskName, id: uuidv4(), status: status },
+
+              ...project.tasks,
+            ])
+          );
         }
         return next;
       });
@@ -38,31 +42,25 @@ function useTodoFunc() {
     []
   );
 
-  const deleteTask = useCallback((arrayTasks: any, taskIndex: string) => {
-    const idx = arrayTasks.indexOf(taskIndex);
-    const deletedTasks = arrayTasks.splice(idx, 1);
-    return deletedTasks;
-  }, []);
-
-  const editTask = useCallback(
-    (arrayTasks: any, taskIndex: string, newTitle: string, status: string) => {
-      const idx = arrayTasks.indexOf(taskIndex);
-      delete arrayTasks[idx];
-      arrayTasks[idx] = { id: taskIndex, title: newTitle, status: status };
+  const deleteTask = useCallback(
+    (arrayTasks: any[], taskId: any) => {
+      const idx = arrayTasks.findIndex((task) => task.id === taskId);
+      setTasks(() => {
+        return arrayTasks.splice(idx, 1);
+      });
     },
-    []
+    [tasks]
   );
 
   return useMemo(
     () => ({
       projects,
       addProject,
-      editTask,
       findProject,
       addTask,
       deleteTask,
     }),
-    [projects, addProject, editTask, findProject, addTask, deleteTask]
+    [projects, addProject, findProject, addTask, deleteTask]
   );
 }
 

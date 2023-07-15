@@ -143,12 +143,7 @@ export function ProjectPage() {
             ))}
           </>
         ) : (
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-            component={"h2"}
-          >
+          <Box sx={{ textAlign: "center" }} component={"h2"}>
             No tasks
           </Box>
         )}
