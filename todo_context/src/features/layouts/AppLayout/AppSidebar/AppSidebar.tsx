@@ -16,7 +16,7 @@ import { FormTextField } from "../../../../components/form";
 import { useParams } from "react-router-dom";
 
 export const AppSidebar = () => {
-  const { projects, addProject } = useTodo();
+  const { projects, addProject, deleteProject } = useTodo();
   const { projectId } = useParams<{ projectId: string }>();
   const formMethods = useForm<AddToDoProjectFormValues>({
     defaultValues: {
@@ -84,7 +84,10 @@ export const AppSidebar = () => {
               >
                 <ListItemText primary={project.title} />
               </ListItemButton>
-              <DeleteForeverIcon color="error" />
+              <DeleteForeverIcon
+                onClick={() => deleteProject(project.id)}
+                color="error"
+              />
             </ListItem>
           ))}
         </List>

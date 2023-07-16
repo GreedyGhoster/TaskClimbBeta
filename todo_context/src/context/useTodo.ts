@@ -48,8 +48,18 @@ function useTodoFunc() {
       setTasks(() => {
         return arrayTasks.splice(idx, 1);
       });
+      console.log(arrayTasks);
     },
     [tasks]
+  );
+
+  const deleteProject = useCallback(
+    (ProjectId: string) => {
+      setProjects((prev) => {
+        return prev.filter((project) => project.id !== ProjectId);
+      });
+    },
+    [projects]
   );
 
   return useMemo(
@@ -59,8 +69,9 @@ function useTodoFunc() {
       findProject,
       addTask,
       deleteTask,
+      deleteProject,
     }),
-    [projects, addProject, findProject, addTask, deleteTask]
+    [projects, addProject, findProject, addTask, deleteTask, deleteProject]
   );
 }
 
