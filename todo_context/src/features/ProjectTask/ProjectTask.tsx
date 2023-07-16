@@ -6,7 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
 import { ThemeProvider } from "@mui/material";
 import { changeTheme } from "../../custom/theme/changetheme";
-import { useTodo } from "../../context";
+import { useTodo } from "../../hooks";
 
 export function ProjectTask({ task, projectId }: any) {
   const { deleteTask, projects } = useTodo();

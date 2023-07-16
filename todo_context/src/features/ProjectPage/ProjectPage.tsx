@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useTodo } from "../../context";
+import { useTodo } from "../../hooks";
 import { NotFound } from "../NotFound";
 import { Box, List } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ export function ProjectPage() {
   const handleSubmitForm = useCallback(
     async (values: AddToDoTaskFormValues) => {
       if (values.title.trim() !== "") {
-        addTask(projectId!, values.title, status);
+        addTask(projectId!, values.title, "status");
         reset({ title: "" });
       }
     },

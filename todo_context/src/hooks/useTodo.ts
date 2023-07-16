@@ -31,7 +31,6 @@ function useTodoFunc() {
           setTasks(
             (project.tasks = [
               { title: taskName, id: uuidv4(), status: status },
-
               ...project.tasks,
             ])
           );
@@ -43,12 +42,14 @@ function useTodoFunc() {
   );
 
   const deleteTask = useCallback(
-    (arrayTasks: any[], taskId: any) => {
+    (arrayTasks: any[], taskId: string) => {
       const idx = arrayTasks.findIndex((task) => task.id === taskId);
       setTasks(() => {
         return arrayTasks.splice(idx, 1);
       });
-      console.log(arrayTasks);
+      // setTasks((prev) => {
+      //   return prev.filter((task) => task.id !== taskId);
+      // });
     },
     [tasks]
   );
