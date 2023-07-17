@@ -41,6 +41,20 @@ function useTodoFunc() {
     []
   );
 
+  const editTask = useCallback(
+    (taskId: string, arrayTasks: any[], newTitle: string) => {
+      setTasks(() => {
+        const idx = arrayTasks.findIndex((task) => task.id === taskId);
+        return arrayTasks.splice(idx, 1, {
+          title: newTitle,
+          id: taskId,
+          status: "status",
+        });
+      });
+    },
+    []
+  );
+
   const deleteTask = useCallback(
     (arrayTasks: any[], taskId: string) => {
       const idx = arrayTasks.findIndex((task) => task.id === taskId);
@@ -71,8 +85,17 @@ function useTodoFunc() {
       addTask,
       deleteTask,
       deleteProject,
+      editTask,
     }),
-    [projects, addProject, findProject, addTask, deleteTask, deleteProject]
+    [
+      projects,
+      addProject,
+      findProject,
+      addTask,
+      deleteTask,
+      deleteProject,
+      editTask,
+    ]
   );
 }
 

@@ -84,10 +84,14 @@ export const AppSidebar = () => {
               >
                 <ListItemText primary={project.title} />
               </ListItemButton>
-              <DeleteForeverIcon
-                onClick={() => deleteProject(project.id)}
-                color="error"
-              />
+              {project.id !== "home" ? (
+                <DeleteForeverIcon
+                  onClick={() => deleteProject(project.id)}
+                  color="error"
+                />
+              ) : (
+                <></>
+              )}
             </ListItem>
           ))}
         </List>

@@ -18,6 +18,11 @@ export function ProjectPage() {
       title: "",
     },
   });
+  const findFormMethods = useForm({
+    defaultValues: {
+      title: "",
+    },
+  });
 
   const { handleSubmit, reset } = formMethods;
 
@@ -56,11 +61,8 @@ export function ProjectPage() {
         }}
         component={"div"}
       >
-        <FormProvider {...formMethods}>
-          <Box
-            component={"form"}
-            // onSubmit={}
-          >
+        <FormProvider {...findFormMethods}>
+          <Box component={"form"}>
             <FormTextField
               inputProps={{ maxLength: 30 }}
               name={"title"}

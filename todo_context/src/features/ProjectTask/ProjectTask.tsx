@@ -4,15 +4,17 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
-import { ThemeProvider } from "@mui/material";
+import { TextField, ThemeProvider } from "@mui/material";
 import { changeTheme } from "../../custom/theme/changetheme";
 import { useTodo } from "../../hooks";
 
 export function ProjectTask({ task, projectId }: any) {
-  const { deleteTask, projects } = useTodo();
+  const { deleteTask, projects, editTask } = useTodo();
+  const [taskChanged, setTaskChanged] = useState(true);
   const [onChangeStatus, setOnChangeStatus] = useState(true);
   const [taskComplete, setTaskComplete] = useState(false);
   const [status, setStatus] = useState("Todo");
+  const [newTitle, setNewTitle] = useState(task.title);
 
   const StatusChange = () => {
     setOnChangeStatus(!onChangeStatus);
@@ -49,30 +51,45 @@ export function ProjectTask({ task, projectId }: any) {
         }}
         key={task.id}
       >
-        <ListItemButton
-          sx={{
-            textAlign: "center",
-            padding: "0",
-            width: "50%",
-            overflowWrap: "break-word",
-          }}
-          href={`/tasks/${projectId}/${task.id}`}
-        >
-          <ListItemText
-            sx={
-              taskComplete
-                ? {
-                    padding: "0",
-                    color: "#919191",
-                    textDecoration: "line-through",
-                  }
-                : {
-                    padding: "0",
-                  }
-            }
-            primary={task.title}
+        {taskChanged ? (
+          <ListItemButton
+            sx={{
+              textAlign: "center",
+              padding: "0",
+              width: "50%",
+              overflowWrap: "break-word",
+            }}
+            href={`/tasks/${projectId}/${task.id}`}
+          >
+            <ListItemText
+              sx={
+                taskComplete
+                  ? {
+                      padding: "0",
+                      color: "#919191",
+                      textDecoration: "line-through",
+                    }
+                  : {
+                      padding: "0",
+                    }
+              }
+              primary={task.title}
+            />
+          </ListItemButton>
+        ) : (
+          <TextField
+            value={newTitle}
+            onChange={(e) => {
+              setNewTitle(e.target.value);
+              editTask(
+                task.id,
+                projects.map((project) => project.tasks)[0],
+                newTitle
+              );
+            }}
           />
-        </ListItemButton>
+        )}
+
         <Box
           sx={{
             height: "auto",
@@ -100,7 +117,15 @@ export function ProjectTask({ task, projectId }: any) {
             }}
             component={"div"}
           >
-            <Button variant="outlined" color="secondary">
+            <Button
+              variant="outlined"
+              onClick={() => {
+                task.title.trim() !== ""
+                  ? setTaskChanged(!taskChanged)
+                  : setTaskChanged(taskChanged);
+              }}
+              color="secondary"
+            >
               Edit
             </Button>
           </Box>
