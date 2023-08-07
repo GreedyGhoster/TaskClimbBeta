@@ -11,7 +11,7 @@ export default function AppRouter() {
       <Route path="/" element={<AppLayout />}>
         <Route path="" element={<Greeting />} />
         <Route path=":projectId" element={<ProjectPage />} />
-        <Route path="tasks/:projectId/:taskId" element={<TaskPage />} />
+        <Route path=":projectId/:taskId" element={<TaskPage />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

@@ -16,6 +16,12 @@ export function ProjectTask({ task, projectId }: any) {
   const [status, setStatus] = useState("Todo");
   const [newTitle, setNewTitle] = useState(task.title);
 
+  const addEditTask = () => {
+    task.title.trim() !== ""
+      ? setTaskChanged(!taskChanged)
+      : setTaskChanged(taskChanged);
+  };
+
   const StatusChange = () => {
     setOnChangeStatus(!onChangeStatus);
     if (onChangeStatus === true) {
@@ -59,7 +65,7 @@ export function ProjectTask({ task, projectId }: any) {
               width: "50%",
               overflowWrap: "break-word",
             }}
-            href={`/tasks/${projectId}/${task.id}`}
+            href={`/${projectId}/${task.id}`}
           >
             <ListItemText
               sx={
@@ -78,6 +84,11 @@ export function ProjectTask({ task, projectId }: any) {
           </ListItemButton>
         ) : (
           <TextField
+            sx={{
+              width: "50%",
+            }}
+            variant="standard"
+            color="secondary"
             value={newTitle}
             onChange={(e) => {
               setNewTitle(e.target.value);
@@ -86,6 +97,11 @@ export function ProjectTask({ task, projectId }: any) {
                 projects.map((project) => project.tasks)[0],
                 newTitle
               );
+            }}
+            onKeyDown={(e: any) => {
+              e.key === "Enter" && e.target.value.trim() !== ""
+                ? addEditTask()
+                : null;
             }}
           />
         )}
@@ -119,11 +135,7 @@ export function ProjectTask({ task, projectId }: any) {
           >
             <Button
               variant="outlined"
-              onClick={() => {
-                task.title.trim() !== ""
-                  ? setTaskChanged(!taskChanged)
-                  : setTaskChanged(taskChanged);
-              }}
+              onClick={() => addEditTask()}
               color="secondary"
             >
               Edit

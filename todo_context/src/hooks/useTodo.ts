@@ -51,6 +51,7 @@ function useTodoFunc() {
           status: "status",
         });
       });
+      console.log(newTitle);
     },
     []
   );
@@ -61,9 +62,6 @@ function useTodoFunc() {
       setTasks(() => {
         return arrayTasks.splice(idx, 1);
       });
-      // setTasks((prev) => {
-      //   return prev.filter((task) => task.id !== taskId);
-      // });
     },
     [tasks]
   );
