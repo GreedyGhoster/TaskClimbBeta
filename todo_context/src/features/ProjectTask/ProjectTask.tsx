@@ -14,7 +14,7 @@ export function ProjectTask({ task, projectId, getStatus }: PropsForTask) {
   const [taskChanged, setTaskChanged] = useState<boolean>(true);
   const [onChangeStatus, setOnChangeStatus] = useState<boolean>(true);
   const [taskComplete, setTaskComplete] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>(task.status);
+  const [status, setStatus] = useState<string>("doing");
   const [newTitle, setNewTitle] = useState<string>(task.title);
 
   const addEditTask = () => {
@@ -27,10 +27,10 @@ export function ProjectTask({ task, projectId, getStatus }: PropsForTask) {
     setOnChangeStatus(!onChangeStatus);
     if (onChangeStatus === true) {
       setTaskComplete(false);
-      setStatus("doing");
+      setStatus("done");
     } else {
       setTaskComplete(true);
-      setStatus("done");
+      setStatus("doing");
     }
   };
 

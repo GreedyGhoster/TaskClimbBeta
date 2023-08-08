@@ -30,7 +30,7 @@ export function ProjectPage() {
   const handleSubmitForm = useCallback(
     async (values: AddToDoTaskFormValues) => {
       if (values.title.trim() !== "") {
-        addTask(projectId!, values.title, status);
+        addTask(projectId!, values.title, "todo");
         reset({ title: "" });
       }
     },
