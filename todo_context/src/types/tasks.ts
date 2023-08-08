@@ -11,5 +11,4 @@ export interface IToDoTask {
 export interface PropsForTask {
   task: any;
   projectId?: string;
-  getStatus: any;
 }

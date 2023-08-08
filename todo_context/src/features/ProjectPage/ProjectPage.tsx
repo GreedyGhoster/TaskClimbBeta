@@ -5,13 +5,12 @@ import { Box, List } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoTaskFormValues } from "../../types";
 import { FormTextField } from "../../components/form";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { TitleContent } from "../../components/TitleContent";
 import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
   const { findProject, addTask } = useTodo();
-  const [status, setStatus] = useState<string>("todo");
   const { projectId } = useParams<{ projectId: string }>();
   const project = findProject(projectId!);
   const formMethods = useForm<AddToDoTaskFormValues>({
@@ -36,10 +35,6 @@ export function ProjectPage() {
     },
     [addTask, reset, projectId]
   );
-
-  const getStatus = (status: string) => {
-    setStatus(status);
-  };
 
   if (!project) {
     return <NotFound />;
@@ -146,12 +141,7 @@ export function ProjectPage() {
         {project.tasks.length > 0 ? (
           <>
             {project.tasks.map((task) => (
-              <ProjectTask
-                key={task.id}
-                task={task}
-                projectId={projectId}
-                getStatus={getStatus}
-              />
+              <ProjectTask key={task.id} task={task} projectId={projectId} />
             ))}
           </>
         ) : (

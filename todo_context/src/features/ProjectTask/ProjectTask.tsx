@@ -9,7 +9,7 @@ import { changeTheme } from "../../custom/theme/changetheme";
 import { useTodo } from "../../hooks";
 import { PropsForTask } from "../../types";
 
-export function ProjectTask({ task, projectId, getStatus }: PropsForTask) {
+export function ProjectTask({ task, projectId }: PropsForTask) {
   const { deleteTask, projects, editTitle, editStatus } = useTodo();
   const [taskChanged, setTaskChanged] = useState<boolean>(true);
   const [onChangeStatus, setOnChangeStatus] = useState<boolean>(true);
@@ -43,10 +43,6 @@ export function ProjectTask({ task, projectId, getStatus }: PropsForTask) {
       return "success";
     }
   };
-
-  useEffect(() => {
-    getStatus(status);
-  }, [status]);
 
   useEffect(() => {
     console.log(`${newTitle} - in ProjectTask`);
@@ -128,15 +124,14 @@ export function ProjectTask({ task, projectId, getStatus }: PropsForTask) {
             padding: "0",
           }}
           component={"div"}
-          onClick={() => {
+          onClick={() =>
             editStatus(
               task.id,
               projects.map((project) => project.tasks)[0],
               task.title,
               status
-            );
-            getStatus(status);
-          }}
+            )
+          }
         >
           <Button
             variant="outlined"
