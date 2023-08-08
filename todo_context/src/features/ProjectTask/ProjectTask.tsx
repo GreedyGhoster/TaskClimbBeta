@@ -10,9 +10,10 @@ import { useTodo } from "../../hooks";
 import { PropsForTask } from "../../types";
 
 export function ProjectTask({ task, projectId }: PropsForTask) {
+  const [index, setIndex] = useState<number>(2);
+  const statuses: [string, string, string] = ["todo", "doing", "done"];
   const { deleteTask, projects, editTitle, editStatus } = useTodo();
   const [taskChanged, setTaskChanged] = useState<boolean>(true);
-  const [onChangeStatus, setOnChangeStatus] = useState<boolean>(true);
   const [taskComplete, setTaskComplete] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("doing");
   const [newTitle, setNewTitle] = useState<string>(task.title);
@@ -24,14 +25,9 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   };
 
   const StatusChange = () => {
-    setOnChangeStatus(!onChangeStatus);
-    if (onChangeStatus === true) {
-      setTaskComplete(false);
-      setStatus("done");
-    } else {
-      setTaskComplete(true);
-      setStatus("doing");
-    }
+    setIndex((index + 1) % statuses.length);
+    setStatus(statuses[index]);
+    status === "done" ? setTaskComplete(true) : setTaskComplete(false);
   };
 
   const ColorChange = () => {
