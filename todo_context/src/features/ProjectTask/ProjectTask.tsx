@@ -3,18 +3,19 @@ import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TextField, ThemeProvider } from "@mui/material";
 import { changeTheme } from "../../custom/theme/changetheme";
 import { useTodo } from "../../hooks";
+import { PropsForTask } from "../../types";
 
-export function ProjectTask({ task, projectId }: any) {
-  const { deleteTask, projects, editTask } = useTodo();
-  const [taskChanged, setTaskChanged] = useState(true);
-  const [onChangeStatus, setOnChangeStatus] = useState(true);
-  const [taskComplete, setTaskComplete] = useState(false);
-  const [status, setStatus] = useState("Todo");
-  const [newTitle, setNewTitle] = useState(task.title);
+export function ProjectTask({ task, projectId, getStatus }: PropsForTask) {
+  const { deleteTask, projects, editTitle, editStatus } = useTodo();
+  const [taskChanged, setTaskChanged] = useState<boolean>(true);
+  const [onChangeStatus, setOnChangeStatus] = useState<boolean>(true);
+  const [taskComplete, setTaskComplete] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>(task.status);
+  const [newTitle, setNewTitle] = useState<string>(task.title);
 
   const addEditTask = () => {
     task.title.trim() !== ""
@@ -26,22 +27,34 @@ export function ProjectTask({ task, projectId }: any) {
     setOnChangeStatus(!onChangeStatus);
     if (onChangeStatus === true) {
       setTaskComplete(false);
-      setStatus("Doing");
+      setStatus("doing");
     } else {
       setTaskComplete(true);
-      setStatus("Done");
+      setStatus("done");
     }
   };
 
   const ColorChange = () => {
-    if (status === "Todo") {
+    if (task.status === "todo") {
       return "primary";
-    } else if (status === "Doing") {
+    } else if (task.status === "doing") {
       return "secondary";
     } else {
       return "success";
     }
   };
+
+  useEffect(() => {
+    getStatus(status);
+  }, [status]);
+
+  useEffect(() => {
+    console.log(`${newTitle} - in ProjectTask`);
+  }, [newTitle]);
+
+  useEffect(() => {
+    console.log(task);
+  }, [status]);
 
   return (
     <>
@@ -92,10 +105,11 @@ export function ProjectTask({ task, projectId }: any) {
             value={newTitle}
             onChange={(e) => {
               setNewTitle(e.target.value);
-              editTask(
+              editTitle(
                 task.id,
                 projects.map((project) => project.tasks)[0],
-                newTitle
+                newTitle,
+                status
               );
             }}
             onKeyDown={(e: any) => {
@@ -114,13 +128,22 @@ export function ProjectTask({ task, projectId }: any) {
             padding: "0",
           }}
           component={"div"}
+          onClick={() => {
+            editStatus(
+              task.id,
+              projects.map((project) => project.tasks)[0],
+              task.title,
+              status
+            );
+            getStatus(status);
+          }}
         >
           <Button
             variant="outlined"
             color={ColorChange()}
             onClick={StatusChange}
           >
-            {status}
+            {task.status}
           </Button>
         </Box>
         <ThemeProvider theme={changeTheme}>

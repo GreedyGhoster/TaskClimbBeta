@@ -7,3 +7,9 @@ export interface IToDoTask {
   title: string;
   status: string;
 }
+
+export interface PropsForTask {
+  task: any;
+  projectId?: string;
+  getStatus: any;
+}

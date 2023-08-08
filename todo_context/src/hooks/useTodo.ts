@@ -41,17 +41,31 @@ function useTodoFunc() {
     []
   );
 
-  const editTask = useCallback(
-    (taskId: string, arrayTasks: any[], newTitle: string) => {
+  const editStatus = useCallback(
+    (taskId: string, arrayTasks: any[], title: string, newStatus: string) => {
+      setTasks(() => {
+        const idx = arrayTasks.findIndex((task) => task.id === taskId);
+        return arrayTasks.splice(idx, 1, {
+          title: title,
+          id: taskId,
+          status: newStatus,
+        });
+      });
+    },
+    []
+  );
+
+  const editTitle = useCallback(
+    (taskId: string, arrayTasks: any[], newTitle: string, status: string) => {
       setTasks(() => {
         const idx = arrayTasks.findIndex((task) => task.id === taskId);
         return arrayTasks.splice(idx, 1, {
           title: newTitle,
           id: taskId,
-          status: "status",
+          status: status,
         });
       });
-      console.log(newTitle);
+      console.log(`${newTitle} - in useTodo`);
     },
     []
   );
@@ -62,6 +76,10 @@ function useTodoFunc() {
       setTasks(() => {
         return arrayTasks.splice(idx, 1);
       });
+      console.log("-------");
+      console.log(`${tasks} - tasks`);
+      console.log(`${arrayTasks} - arrayTasks`);
+      console.log("-------");
     },
     [tasks]
   );
@@ -83,7 +101,8 @@ function useTodoFunc() {
       addTask,
       deleteTask,
       deleteProject,
-      editTask,
+      editTitle,
+      editStatus,
     }),
     [
       projects,
@@ -92,7 +111,8 @@ function useTodoFunc() {
       addTask,
       deleteTask,
       deleteProject,
-      editTask,
+      editTitle,
+      editStatus,
     ]
   );
 }

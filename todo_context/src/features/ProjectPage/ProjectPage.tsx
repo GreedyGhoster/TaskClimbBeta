@@ -5,12 +5,13 @@ import { Box, List } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoTaskFormValues } from "../../types";
 import { FormTextField } from "../../components/form";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { TitleContent } from "../../components/TitleContent";
 import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
   const { findProject, addTask } = useTodo();
+  const [status, setStatus] = useState<string>("todo");
   const { projectId } = useParams<{ projectId: string }>();
   const project = findProject(projectId!);
   const formMethods = useForm<AddToDoTaskFormValues>({
@@ -29,12 +30,16 @@ export function ProjectPage() {
   const handleSubmitForm = useCallback(
     async (values: AddToDoTaskFormValues) => {
       if (values.title.trim() !== "") {
-        addTask(projectId!, values.title, "status");
+        addTask(projectId!, values.title, status);
         reset({ title: "" });
       }
     },
     [addTask, reset, projectId]
   );
+
+  const getStatus = (status: string) => {
+    setStatus(status);
+  };
 
   if (!project) {
     return <NotFound />;
@@ -141,7 +146,12 @@ export function ProjectPage() {
         {project.tasks.length > 0 ? (
           <>
             {project.tasks.map((task) => (
-              <ProjectTask key={task.id} task={task} projectId={projectId} />
+              <ProjectTask
+                key={task.id}
+                task={task}
+                projectId={projectId}
+                getStatus={getStatus}
+              />
             ))}
           </>
         ) : (
