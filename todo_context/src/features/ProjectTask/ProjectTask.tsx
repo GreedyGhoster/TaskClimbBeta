@@ -10,13 +10,14 @@ import { useTodo } from "../../hooks";
 import { PropsForTask } from "../../types";
 
 export function ProjectTask({ task, projectId }: PropsForTask) {
-  const [index, setIndex] = useState<number>(2);
-  const statuses: [string, string, string] = ["todo", "doing", "done"];
   const { deleteTask, projects, editTitle, editStatus } = useTodo();
+  const [index, setIndex] = useState<number>(2);
   const [taskChanged, setTaskChanged] = useState<boolean>(true);
   const [taskComplete, setTaskComplete] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("doing");
   const [newTitle, setNewTitle] = useState<string>(task.title);
+
+  const statuses: [string, string, string] = ["todo", "doing", "done"];
 
   const addEditTask = () => {
     task.title.trim() !== ""
@@ -70,7 +71,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
               width: "50%",
               overflowWrap: "break-word",
             }}
-            href={`/${projectId}/${task.id}`}
+            href={`/${projectId}/${task.title}/${task.id}`}
           >
             <ListItemText
               sx={

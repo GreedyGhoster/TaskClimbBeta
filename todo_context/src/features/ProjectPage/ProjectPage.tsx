@@ -18,6 +18,7 @@ export function ProjectPage() {
       title: "",
     },
   });
+
   const findFormMethods = useForm({
     defaultValues: {
       title: "",
