@@ -12,8 +12,6 @@ export function TaskPage() {
     navigate(`/${projectId}`);
   };
 
-  console.log(taskTitle);
-
   return (
     <Box
       sx={{
@@ -30,24 +28,19 @@ export function TaskPage() {
     >
       <Box
         sx={{
+          display: "inline-flex",
           marginTop: "2%",
           marginBottom: "1%",
           width: "90%",
           alignSelf: "center",
         }}
       >
-        <Typography
-          sx={{
-            float: "left",
-          }}
-          variant="h4"
-        >
-          {taskTitle}
-        </Typography>
+        <Typography variant="h4">{taskTitle}</Typography>
         <Button
           sx={{
             float: "right",
             margin: "auto",
+            marginRight: 0,
           }}
           onClick={GoBack}
           variant="outlined"
@@ -64,11 +57,11 @@ export function TaskPage() {
         <TextField
           sx={{
             width: "100%",
-            clear: "left",
           }}
-          multiline
+          spellCheck="false"
           variant="standard"
           placeholder="Description"
+          multiline
         />
         <Button
           sx={{
