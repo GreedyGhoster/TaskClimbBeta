@@ -1,11 +1,21 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTodo } from "../../hooks";
+import { useState } from "react";
 
 export function TaskPage() {
   const { projectId, taskTitle } = useParams<{
     projectId: string;
     taskTitle: string;
   }>();
+  const { findProject, editDescription } = useTodo();
+  const project = findProject(projectId!);
+  const [description, setDescription] = useState(
+    project?.tasks.map((task) => task.description)
+  );
+
+  console.log(description);
+
   const navigate = useNavigate();
 
   const GoBack = () => {
@@ -60,7 +70,7 @@ export function TaskPage() {
           }}
           spellCheck="false"
           variant="standard"
-          placeholder="Description"
+          placeholder="Description in several rows"
           multiline
         />
         <Button

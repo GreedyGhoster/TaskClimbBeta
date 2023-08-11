@@ -8,14 +8,17 @@ import { TextField, ThemeProvider } from "@mui/material";
 import { changeTheme } from "../../custom/theme/changetheme";
 import { useTodo } from "../../hooks";
 import { PropsForTask } from "../../types";
+import { NotFound } from "../NotFound";
 
 export function ProjectTask({ task, projectId }: PropsForTask) {
-  const { deleteTask, projects, editTitle, editStatus } = useTodo();
+  const { deleteTask, editTitle, editStatus, findProject } = useTodo();
+  const project = findProject(projectId!);
   const [index, setIndex] = useState<number>(2);
   const [taskChanged, setTaskChanged] = useState<boolean>(true);
   const [taskComplete, setTaskComplete] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("doing");
   const [newTitle, setNewTitle] = useState<string>(task.title);
+  const [description] = useState<string>(task.description);
 
   const statuses: [string, string, string] = ["todo", "doing", "done"];
 
@@ -48,6 +51,10 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   useEffect(() => {
     console.log(task);
   }, [status]);
+
+  if (!project) {
+    return <NotFound />;
+  }
 
   return (
     <>
@@ -98,12 +105,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
             value={newTitle}
             onChange={(e) => {
               setNewTitle(e.target.value);
-              editTitle(
-                task.id,
-                projects.map((project) => project.tasks)[0],
-                newTitle,
-                status
-              );
+              editTitle(task.id, project.tasks, newTitle, description);
             }}
             onKeyDown={(e: any) => {
               e.key === "Enter" && e.target.value.trim() !== ""
@@ -121,14 +123,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
             padding: "0",
           }}
           component={"div"}
-          onClick={() =>
-            editStatus(
-              task.id,
-              projects.map((project) => project.tasks)[0],
-              task.title,
-              status
-            )
-          }
+          onClick={() => editStatus(task.id, project.tasks, task.title, status)}
         >
           <Button
             variant="outlined"
@@ -167,9 +162,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
           component={"div"}
         >
           <Button
-            onClick={() =>
-              deleteTask(projects.map((project) => project.tasks)[0], task.id)
-            }
+            onClick={() => deleteTask(project.tasks, task.id)}
             variant="outlined"
             color="error"
           >
