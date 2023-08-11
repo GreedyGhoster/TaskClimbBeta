@@ -9,4 +9,27 @@ $ cd todo_context
 $ yarn
 $ yarn dev
 ```
-Or refer to the [Vite](https://vitejs.dev/guide/) website 
+Or refer to the [Vite](https://vitejs.dev/guide/) website
+
+### Need to install
+1. react-hook-form
+2. uuidv4
+3. constate
+4. lodash
+```shell
+$ npm i react-hook-form
+$ npm i uuidv4
+$ npm i constate
+$ npm i lodash
+```
+
+### For errors
+Uncaught Error: Cannot find module 'react'
+```shell
+$ npm install --save react react-dom @types/react @types/react-dom
+```
+
+
+
+
+
