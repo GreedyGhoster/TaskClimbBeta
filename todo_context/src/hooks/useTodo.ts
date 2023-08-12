@@ -96,7 +96,6 @@ function useTodoFunc() {
           description: description,
         });
       });
-      console.log(`${newTitle} - in useTodo`);
     },
     []
   );
@@ -118,7 +117,6 @@ function useTodoFunc() {
           description: newDescription,
         });
       });
-      console.log(newDescription);
     },
     []
   );

@@ -1,15 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useTodo } from "../../hooks";
 import { NotFound } from "../NotFound";
-import { Box, List } from "@mui/material";
+import { Box, List, TextField } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoTaskFormValues } from "../../types";
 import { FormTextField } from "../../components/form";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { TitleContent } from "../../components/TitleContent";
 import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
+  const [searchTerm, setSearchTerm] = useState("");
   const { findProject, addTask } = useTodo();
   const { projectId } = useParams<{ projectId: string }>();
   const project = findProject(projectId!);
@@ -62,15 +63,15 @@ export function ProjectPage() {
         }}
         component={"div"}
       >
-        <FormProvider {...findFormMethods}>
-          <Box component={"form"}>
-            <FormTextField
-              inputProps={{ maxLength: 30 }}
-              name={"title"}
-              placeholder="Find the task"
-            />
-          </Box>
-        </FormProvider>
+        <Box component={"form"}>
+          <TextField
+            inputProps={{ maxLength: 30 }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            name={"title"}
+            placeholder="Find the task"
+          />
+        </Box>
         <FormProvider {...formMethods}>
           <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
             <FormTextField
@@ -141,9 +142,18 @@ export function ProjectPage() {
       >
         {project.tasks.length > 0 ? (
           <>
-            {project.tasks.map((task) => (
-              <ProjectTask key={task.id} task={task} projectId={projectId} />
-            ))}
+            {project.tasks
+              .filter((val) => {
+                if (
+                  searchTerm === "" ||
+                  val.title.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((task) => (
+                <ProjectTask key={task.id} task={task} projectId={projectId} />
+              ))}
           </>
         ) : (
           <Box sx={{ textAlign: "center" }} component={"h2"}>

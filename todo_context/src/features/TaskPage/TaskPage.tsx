@@ -12,26 +12,18 @@ export function TaskPage() {
   }>();
   const { findProject, editDescription, findTask } = useTodo();
   const project = findProject(projectId!);
-
-  // Костыль
-  if (!project || !taskId || !taskTitle) {
-    return <NotFound />;
-  }
-
-  const task = findTask(project.tasks, taskId);
-
-  // Костыль
-  if (!task) {
-    return <NotFound />;
-  }
-
-  const [description, setDescription] = useState(task.description);
+  const task = findTask(project!.tasks, taskId!);
+  const [description, setDescription] = useState(task!.description);
 
   const navigate = useNavigate();
 
   const GoBack = () => {
     navigate(`/${projectId}`);
   };
+
+  if (!project) {
+    return <NotFound />;
+  }
 
   return (
     <Box
@@ -63,7 +55,16 @@ export function TaskPage() {
             margin: "auto",
             marginRight: 0,
           }}
-          onClick={GoBack}
+          onClick={() => {
+            GoBack();
+            editDescription(
+              taskId!,
+              project.tasks,
+              taskTitle!,
+              description,
+              task!.status
+            );
+          }}
           variant="outlined"
         >
           Back
@@ -97,11 +98,11 @@ export function TaskPage() {
           variant="outlined"
           onClick={() =>
             editDescription(
-              taskId,
+              taskId!,
               project.tasks,
-              taskTitle,
+              taskTitle!,
               description,
-              task.status
+              task!.status
             )
           }
         >
