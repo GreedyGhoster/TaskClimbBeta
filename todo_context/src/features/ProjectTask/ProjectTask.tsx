@@ -44,21 +44,13 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(`${newTitle} - in ProjectTask`);
-  // }, [newTitle]);
-
   if (!project) {
     return <NotFound />;
   }
 
   // Два костыля
   useEffect(() => {
-    editTitle(task.id, project.tasks, title, description);
-  }, []);
-
-  useEffect(() => {
-    editTitle(task.id, project.tasks, title, description);
+    editTitle(task.id, project.tasks, title, description, task.status);
   }, [title]);
 
   return (

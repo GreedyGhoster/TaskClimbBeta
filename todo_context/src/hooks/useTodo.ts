@@ -84,14 +84,15 @@ function useTodoFunc() {
       taskId: string,
       arrayTasks: IToDoTask[],
       newTitle: string,
-      description: string
+      description: string,
+      status: string
     ) => {
       setTasks(() => {
         const idx = arrayTasks.findIndex((task) => task.id === taskId);
         return arrayTasks.splice(idx, 1, {
           title: newTitle,
           id: taskId,
-          status: "todo",
+          status: status,
           description: description,
         });
       });
@@ -105,14 +106,15 @@ function useTodoFunc() {
       taskId: string,
       arrayTasks: IToDoTask[],
       title: string,
-      newDescription: string
+      newDescription: string,
+      status: string
     ) => {
       setTasks(() => {
         const idx = arrayTasks.findIndex((task) => task.id === taskId);
         return arrayTasks.splice(idx, 1, {
           title: title,
           id: taskId,
-          status: "todo",
+          status: status,
           description: newDescription,
         });
       });

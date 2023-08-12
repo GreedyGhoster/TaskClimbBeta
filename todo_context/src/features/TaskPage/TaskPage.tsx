@@ -96,7 +96,13 @@ export function TaskPage() {
           color="success"
           variant="outlined"
           onClick={() =>
-            editDescription(taskId, project.tasks, taskTitle, description)
+            editDescription(
+              taskId,
+              project.tasks,
+              taskTitle,
+              description,
+              task.status
+            )
           }
         >
           Save
