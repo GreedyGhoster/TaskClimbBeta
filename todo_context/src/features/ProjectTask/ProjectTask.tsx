@@ -20,7 +20,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   const [newTitle, setNewTitle] = useState<string>(task.title);
   const [description] = useState<string>(task.description);
 
-  const statuses: [string, string, string] = ["todo", "doing", "done"];
+  const statuses: string[] = ["todo", "doing", "done"];
 
   const addEditTask = () => {
     task.title.trim() !== ""
@@ -44,13 +44,13 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
     }
   };
 
-  useEffect(() => {
-    console.log(`${newTitle} - in ProjectTask`);
-  }, [newTitle]);
+  // useEffect(() => {
+  //   console.log(`${newTitle} - in ProjectTask`);
+  // }, [newTitle]);
 
   useEffect(() => {
     console.log(task);
-  }, [status]);
+  }, [task.description]);
 
   if (!project) {
     return <NotFound />;
@@ -123,7 +123,9 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
             padding: "0",
           }}
           component={"div"}
-          onClick={() => editStatus(task.id, project.tasks, task.title, status)}
+          onClick={() =>
+            editStatus(task.id, project.tasks, task.title, status, description)
+          }
         >
           <Button
             variant="outlined"

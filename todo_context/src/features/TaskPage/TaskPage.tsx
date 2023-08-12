@@ -2,19 +2,30 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTodo } from "../../hooks";
 import { useState } from "react";
+import { NotFound } from "../NotFound";
 
 export function TaskPage() {
-  const { projectId, taskTitle } = useParams<{
+  const { projectId, taskTitle, taskId } = useParams<{
     projectId: string;
     taskTitle: string;
+    taskId: string;
   }>();
-  const { findProject, editDescription } = useTodo();
+  const { findProject, editDescription, findTask } = useTodo();
   const project = findProject(projectId!);
-  const [description, setDescription] = useState(
-    project?.tasks.map((task) => task.description)
-  );
 
-  console.log(description);
+  // Костыль
+  if (!project || !taskId || !taskTitle) {
+    return <NotFound />;
+  }
+
+  const task = findTask(project.tasks, taskId);
+
+  // Костыль
+  if (!task) {
+    return <NotFound />;
+  }
+
+  const [description, setDescription] = useState(task.description);
 
   const navigate = useNavigate();
 
@@ -68,6 +79,8 @@ export function TaskPage() {
           sx={{
             width: "100%",
           }}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           spellCheck="false"
           variant="standard"
           placeholder="Description in several rows"
@@ -82,6 +95,9 @@ export function TaskPage() {
           }}
           color="success"
           variant="outlined"
+          onClick={() =>
+            editDescription(taskId, project.tasks, taskTitle, description)
+          }
         >
           Save
         </Button>

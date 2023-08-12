@@ -22,6 +22,13 @@ function useTodoFunc() {
     [projects]
   );
 
+  const findTask = useCallback(
+    (arrayTasks: IToDoTask[], taskId: string) => {
+      return arrayTasks.find((task) => task.id === taskId);
+    },
+    [tasks]
+  );
+
   const addTask = useCallback(
     (
       projectId: string,
@@ -52,13 +59,20 @@ function useTodoFunc() {
   );
 
   const editStatus = useCallback(
-    (taskId: string, arrayTasks: any[], title: string, newStatus: string) => {
+    (
+      taskId: string,
+      arrayTasks: IToDoTask[],
+      title: string,
+      newStatus: string,
+      description: string
+    ) => {
       setTasks(() => {
         const idx = arrayTasks.findIndex((task) => task.id === taskId);
         return arrayTasks.splice(idx, 1, {
           title: title,
           id: taskId,
           status: newStatus,
+          description: description,
         });
       });
     },
@@ -86,18 +100,33 @@ function useTodoFunc() {
     []
   );
 
-  const editDescription = useCallback((arrayTasks: any[]) => {}, []);
+  const editDescription = useCallback(
+    (
+      taskId: string,
+      arrayTasks: IToDoTask[],
+      title: string,
+      newDescription: string
+    ) => {
+      setTasks(() => {
+        const idx = arrayTasks.findIndex((task) => task.id === taskId);
+        return arrayTasks.splice(idx, 1, {
+          title: title,
+          id: taskId,
+          status: "todo",
+          description: newDescription,
+        });
+      });
+      console.log(newDescription);
+    },
+    []
+  );
 
   const deleteTask = useCallback(
-    (arrayTasks: any[], taskId: string) => {
+    (arrayTasks: IToDoTask[], taskId: string) => {
       const idx = arrayTasks.findIndex((task) => task.id === taskId);
       setTasks(() => {
         return arrayTasks.splice(idx, 1);
       });
-      console.log("-------");
-      console.log(`${tasks} - tasks`);
-      console.log(`${arrayTasks} - arrayTasks`);
-      console.log("-------");
     },
     [tasks]
   );
@@ -122,6 +151,7 @@ function useTodoFunc() {
       editTitle,
       editStatus,
       editDescription,
+      findTask,
     }),
     [
       projects,
@@ -133,6 +163,7 @@ function useTodoFunc() {
       editTitle,
       editStatus,
       editDescription,
+      findTask,
     ]
   );
 }
