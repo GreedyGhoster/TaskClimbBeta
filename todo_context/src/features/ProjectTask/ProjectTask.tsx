@@ -29,7 +29,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   };
 
   const StatusChange = () => {
-    setIndex((index + 1) % statuses.length);
+    setIndex((prev) => (prev + 1) % statuses.length);
     setStatus(statuses[index]);
     status === "done" ? setTaskComplete(true) : setTaskComplete(false);
   };
