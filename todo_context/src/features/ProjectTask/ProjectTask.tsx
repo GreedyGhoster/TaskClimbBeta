@@ -17,7 +17,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   const [taskChanged, setTaskChanged] = useState<boolean>(true);
   const [taskComplete, setTaskComplete] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("doing");
-  const [newTitle, setNewTitle] = useState<string>(task.title);
+  const [title, setTitle] = useState<string>(task.title);
   const [description] = useState<string>(task.description);
 
   const statuses: string[] = ["todo", "doing", "done"];
@@ -48,13 +48,18 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   //   console.log(`${newTitle} - in ProjectTask`);
   // }, [newTitle]);
 
-  useEffect(() => {
-    console.log(task);
-  }, [task.description]);
-
   if (!project) {
     return <NotFound />;
   }
+
+  // Два костыля
+  useEffect(() => {
+    editTitle(task.id, project.tasks, title, description);
+  }, []);
+
+  useEffect(() => {
+    editTitle(task.id, project.tasks, title, description);
+  }, [title]);
 
   return (
     <>
@@ -102,16 +107,8 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
             }}
             variant="standard"
             color="secondary"
-            value={newTitle}
-            onChange={(e) => {
-              setNewTitle(e.target.value);
-              editTitle(task.id, project.tasks, newTitle, description);
-            }}
-            onKeyDown={(e: any) => {
-              e.key === "Enter" && e.target.value.trim() !== ""
-                ? addEditTask()
-                : null;
-            }}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         )}
 
