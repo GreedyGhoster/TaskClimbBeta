@@ -5,9 +5,8 @@ import { useState } from "react";
 import { NotFound } from "../NotFound";
 
 export function TaskPage() {
-  const { projectId, taskTitle, taskId } = useParams<{
+  const { projectId, taskId } = useParams<{
     projectId: string;
-    taskTitle: string;
     taskId: string;
   }>();
   const { findProject, editDescription, findTask } = useTodo();
@@ -48,7 +47,7 @@ export function TaskPage() {
           alignSelf: "center",
         }}
       >
-        <Typography variant="h4">{taskTitle}</Typography>
+        <Typography variant="h4">{task!.title}</Typography>
         <Button
           sx={{
             float: "right",
@@ -60,7 +59,7 @@ export function TaskPage() {
             editDescription(
               taskId!,
               project.tasks,
-              taskTitle!,
+              task!.title,
               description,
               task!.status
             );
@@ -100,7 +99,7 @@ export function TaskPage() {
             editDescription(
               taskId!,
               project.tasks,
-              taskTitle!,
+              task!.title,
               description,
               task!.status
             )

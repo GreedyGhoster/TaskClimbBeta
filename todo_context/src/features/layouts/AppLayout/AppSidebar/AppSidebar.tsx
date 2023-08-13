@@ -20,6 +20,7 @@ export const AppSidebar = () => {
   const { projects, addProject, deleteProject } = useTodo();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { projectId } = useParams<{ projectId: string }>();
+
   const formMethods = useForm<AddToDoProjectFormValues>({
     defaultValues: {
       title: "",

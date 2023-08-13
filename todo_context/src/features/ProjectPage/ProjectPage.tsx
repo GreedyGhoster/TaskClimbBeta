@@ -59,7 +59,7 @@ export function ProjectPage() {
       >
         <Box component={"form"}>
           <TextField
-            inputProps={{ maxLength: 30 }}
+            inputProps={{ maxLength: 43 }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             name={"title"}

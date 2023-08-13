@@ -74,7 +74,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
               width: "50%",
               overflowWrap: "break-word",
             }}
-            href={`/${projectId}/${task.title}/${task.id}`}
+            href={`/${projectId}/${task.id}`}
           >
             <ListItemText
               sx={
