@@ -10,17 +10,11 @@ import { TitleContent } from "../../components/TitleContent";
 import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const { findProject, addTask } = useTodo();
   const { projectId } = useParams<{ projectId: string }>();
   const project = findProject(projectId!);
   const formMethods = useForm<AddToDoTaskFormValues>({
-    defaultValues: {
-      title: "",
-    },
-  });
-
-  const findFormMethods = useForm({
     defaultValues: {
       title: "",
     },
@@ -69,7 +63,7 @@ export function ProjectPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             name={"title"}
-            placeholder="Find the task"
+            placeholder="Find task"
           />
         </Box>
         <FormProvider {...formMethods}>
@@ -77,7 +71,7 @@ export function ProjectPage() {
             <FormTextField
               inputProps={{ maxLength: 43 }}
               name={"title"}
-              placeholder="Add the task"
+              placeholder="Add task"
             />
           </Box>
         </FormProvider>

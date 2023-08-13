@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  TextField,
   Typography,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -11,12 +12,13 @@ import { APP_SIDEBAR_WIDTH } from "./AppSidebar.constants";
 import { useTodo } from "../../../../hooks";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoProjectFormValues } from "../../../../types";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { FormTextField } from "../../../../components/form";
 import { useParams } from "react-router-dom";
 
 export const AppSidebar = () => {
   const { projects, addProject, deleteProject } = useTodo();
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const { projectId } = useParams<{ projectId: string }>();
   const formMethods = useForm<AddToDoProjectFormValues>({
     defaultValues: {
@@ -66,34 +68,57 @@ export const AppSidebar = () => {
             <FormTextField
               inputProps={{ maxLength: 20 }}
               name="title"
-              placeholder="add project"
+              placeholder="Add project"
             />
           </Box>
         </FormProvider>
+        <Box
+          sx={{
+            marginTop: "2%",
+          }}
+          component={"form"}
+        >
+          <TextField
+            inputProps={{ maxLength: 20 }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            name={"title"}
+            placeholder="Find project"
+          />
+        </Box>
         <List
           sx={{
             display: "flex",
             flexDirection: "column-reverse",
           }}
         >
-          {projects.map((project) => (
-            <ListItem key={project.id}>
-              <ListItemButton
-                selected={project.id === projectId}
-                href={project.id}
-              >
-                <ListItemText primary={project.title} />
-              </ListItemButton>
-              {project.id !== "home" ? (
-                <DeleteForeverIcon
-                  onClick={() => deleteProject(project.id)}
-                  color="error"
-                />
-              ) : (
-                <></>
-              )}
-            </ListItem>
-          ))}
+          {projects
+            .filter((val) => {
+              if (
+                searchTerm === "" ||
+                val.title.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            })
+            .map((project) => (
+              <ListItem key={project.id}>
+                <ListItemButton
+                  selected={project.id === projectId}
+                  href={project.id}
+                >
+                  <ListItemText primary={project.title} />
+                </ListItemButton>
+                {project.id !== "home" ? (
+                  <DeleteForeverIcon
+                    onClick={() => deleteProject(project.id)}
+                    color="error"
+                  />
+                ) : (
+                  <></>
+                )}
+              </ListItem>
+            ))}
         </List>
       </Box>
     </Box>

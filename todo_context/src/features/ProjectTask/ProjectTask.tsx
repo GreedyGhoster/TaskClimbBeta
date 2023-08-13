@@ -48,7 +48,6 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
     return <NotFound />;
   }
 
-  // Костыль
   useEffect(() => {
     editTitle(task.id, project.tasks, title, description, task.status);
   }, [title]);
