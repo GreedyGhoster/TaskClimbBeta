@@ -26,6 +26,9 @@ Or
 ```shell
 $ npm i -S react-hook-form uuidv4 constate lodash
 ```
+### Todo
+- [ ] Add backend
+- [ ] Place a website on the Internet
 
 ### For errors
 Uncaught Error: Cannot find module 'react'
