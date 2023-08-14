@@ -140,6 +140,10 @@ function useTodoFunc() {
     [projects]
   );
 
+  const editProject = useCallback(() => {
+    console.log(projects);
+  }, [projects]);
+
   return useMemo(
     () => ({
       projects,
@@ -152,6 +156,7 @@ function useTodoFunc() {
       editStatus,
       editDescription,
       findTask,
+      editProject,
     }),
     [
       projects,
@@ -164,6 +169,7 @@ function useTodoFunc() {
       editStatus,
       editDescription,
       findTask,
+      editProject,
     ]
   );
 }

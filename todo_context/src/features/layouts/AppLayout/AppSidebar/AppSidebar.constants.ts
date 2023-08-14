@@ -1,1 +1,1 @@
-export const APP_SIDEBAR_WIDTH = "280px";
+export const APP_SIDEBAR_WIDTH = "330px";

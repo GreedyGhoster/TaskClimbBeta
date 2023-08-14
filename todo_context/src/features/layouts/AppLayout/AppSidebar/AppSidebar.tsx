@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import CreateIcon from "@mui/icons-material/Create";
 import { APP_SIDEBAR_WIDTH } from "./AppSidebar.constants";
 import { useTodo } from "../../../../hooks";
 import { FormProvider, useForm } from "react-hook-form";
@@ -15,6 +16,8 @@ import { AddToDoProjectFormValues } from "../../../../types";
 import { useCallback, useState } from "react";
 import { FormTextField } from "../../../../components/form";
 import { useParams } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import { changeTheme } from "../../../../custom/theme/changetheme";
 
 export const AppSidebar = () => {
   const { projects, addProject, deleteProject } = useTodo();
@@ -103,21 +106,40 @@ export const AppSidebar = () => {
               }
             })
             .map((project) => (
-              <ListItem key={project.id}>
+              <ListItem
+                sx={{
+                  paddingRight: 0,
+                }}
+                key={project.id}
+              >
                 <ListItemButton
                   selected={project.id === projectId}
                   href={project.id}
                 >
                   <ListItemText primary={project.title} />
+                  {project.id !== "home" ? (
+                    <Box
+                      sx={{
+                        marginTop: "1.5%",
+                      }}
+                    >
+                      <ThemeProvider theme={changeTheme}>
+                        <CreateIcon
+                          sx={{
+                            marginRight: "5px",
+                          }}
+                          color="secondary"
+                        />
+                      </ThemeProvider>
+                      <DeleteForeverIcon
+                        onClick={() => deleteProject(project.id)}
+                        color="error"
+                      />
+                    </Box>
+                  ) : (
+                    <></>
+                  )}
                 </ListItemButton>
-                {project.id !== "home" ? (
-                  <DeleteForeverIcon
-                    onClick={() => deleteProject(project.id)}
-                    color="error"
-                  />
-                ) : (
-                  <></>
-                )}
               </ListItem>
             ))}
         </List>

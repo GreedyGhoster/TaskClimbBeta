@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useTodo } from "../../hooks";
 import { NotFound } from "../NotFound";
-import { Box, List, TextField } from "@mui/material";
+import { Box, List, TextField, Typography } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { AddToDoTaskFormValues } from "../../types";
 import { FormTextField } from "../../components/form";
 import { useCallback, useState } from "react";
-import { TitleContent } from "../../components/TitleContent";
 import { ProjectTask } from "../ProjectTask";
 
 export function ProjectPage() {
@@ -45,7 +44,14 @@ export function ProjectPage() {
         justifyContent: "center",
       }}
     >
-      <TitleContent />
+      <Typography
+        sx={{
+          marginTop: "1.5%",
+        }}
+        variant="h4"
+      >
+        {project.title}
+      </Typography>
       <Box
         sx={{
           display: "inline-flex",
@@ -53,7 +59,7 @@ export function ProjectPage() {
           textAlign: "center",
           width: "auto",
           margin: "auto",
-          marginTop: "3%",
+          marginTop: "2.5%",
         }}
         component={"div"}
       >
