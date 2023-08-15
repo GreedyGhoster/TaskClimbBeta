@@ -1,14 +1,4 @@
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  TextField,
-  Typography,
-} from "@mui/material";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import CreateIcon from "@mui/icons-material/Create";
+import { Box, List, TextField, Typography } from "@mui/material";
 import { APP_SIDEBAR_WIDTH } from "./AppSidebar.constants";
 import { useTodo } from "../../../../hooks";
 import { FormProvider, useForm } from "react-hook-form";
@@ -16,13 +6,12 @@ import { AddToDoProjectFormValues } from "../../../../types";
 import { useCallback, useState } from "react";
 import { FormTextField } from "../../../../components/form";
 import { useParams } from "react-router-dom";
-import { ThemeProvider } from "@emotion/react";
-import { changeTheme } from "../../../../custom/theme/changetheme";
+import { AppProjectItem } from "./AppProjectItem";
 
 export const AppSidebar = () => {
-  const { projects, addProject, deleteProject } = useTodo();
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const { projects, addProject } = useTodo();
   const { projectId } = useParams<{ projectId: string }>();
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const formMethods = useForm<AddToDoProjectFormValues>({
     defaultValues: {
@@ -106,41 +95,7 @@ export const AppSidebar = () => {
               }
             })
             .map((project) => (
-              <ListItem
-                sx={{
-                  paddingRight: 0,
-                }}
-                key={project.id}
-              >
-                <ListItemButton
-                  selected={project.id === projectId}
-                  href={project.id}
-                >
-                  <ListItemText primary={project.title} />
-                  {project.id !== "home" ? (
-                    <Box
-                      sx={{
-                        marginTop: "1.5%",
-                      }}
-                    >
-                      <ThemeProvider theme={changeTheme}>
-                        <CreateIcon
-                          sx={{
-                            marginRight: "5px",
-                          }}
-                          color="secondary"
-                        />
-                      </ThemeProvider>
-                      <DeleteForeverIcon
-                        onClick={() => deleteProject(project.id)}
-                        color="error"
-                      />
-                    </Box>
-                  ) : (
-                    <></>
-                  )}
-                </ListItemButton>
-              </ListItem>
+              <AppProjectItem project={project} projectId={projectId} />
             ))}
         </List>
       </Box>

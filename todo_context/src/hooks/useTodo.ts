@@ -66,8 +66,8 @@ function useTodoFunc() {
       newStatus: string,
       description: string
     ) => {
+      const idx = arrayTasks.findIndex((task) => task.id === taskId);
       setTasks(() => {
-        const idx = arrayTasks.findIndex((task) => task.id === taskId);
         return arrayTasks.splice(idx, 1, {
           title: title,
           id: taskId,
@@ -87,8 +87,8 @@ function useTodoFunc() {
       description: string,
       status: string
     ) => {
+      const idx = arrayTasks.findIndex((task) => task.id === taskId);
       setTasks(() => {
-        const idx = arrayTasks.findIndex((task) => task.id === taskId);
         return arrayTasks.splice(idx, 1, {
           title: newTitle,
           id: taskId,
@@ -108,8 +108,8 @@ function useTodoFunc() {
       newDescription: string,
       status: string
     ) => {
+      const idx = arrayTasks.findIndex((task) => task.id === taskId);
       setTasks(() => {
-        const idx = arrayTasks.findIndex((task) => task.id === taskId);
         return arrayTasks.splice(idx, 1, {
           title: title,
           id: taskId,
@@ -119,6 +119,20 @@ function useTodoFunc() {
       });
     },
     []
+  );
+
+  const editProject = useCallback(
+    (projectId: string, newTitle: string, tasks: IToDoTask[]) => {
+      const idx = projects.findIndex((project) => project.id === projectId);
+      setProjects(() => {
+        return projects.splice(idx, 1, {
+          id: projectId,
+          title: newTitle,
+          tasks: tasks,
+        });
+      });
+    },
+    [projects]
   );
 
   const deleteTask = useCallback(
@@ -139,10 +153,6 @@ function useTodoFunc() {
     },
     [projects]
   );
-
-  const editProject = useCallback(() => {
-    console.log(projects);
-  }, [projects]);
 
   return useMemo(
     () => ({
