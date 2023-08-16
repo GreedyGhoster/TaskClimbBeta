@@ -15,7 +15,6 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   const project = findProject(projectId!);
   const [index, setIndex] = useState<number>(2);
   const [taskChanged, setTaskChanged] = useState<boolean>(true);
-  const [taskComplete, setTaskComplete] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("doing");
   const [title, setTitle] = useState<string>(task.title);
   const [description] = useState<string>(task.description);
@@ -31,7 +30,6 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
   const StatusChange = () => {
     setIndex((prev) => (prev + 1) % statuses.length);
     setStatus(statuses[index]);
-    status === "done" ? setTaskComplete(true) : setTaskComplete(false);
   };
 
   const ColorChange = () => {
@@ -78,7 +76,7 @@ export function ProjectTask({ task, projectId }: PropsForTask) {
           >
             <ListItemText
               sx={
-                taskComplete
+                task.status === "done"
                   ? {
                       padding: "0",
                       color: "#919191",
