@@ -1,4 +1,4 @@
-# react_todo_v2
+# TaskClimb
 
 ## Quick Start
 The project was built using Vite and the "yarn" package manager
