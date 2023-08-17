@@ -123,8 +123,8 @@ function useTodoFunc() {
 
   const editProject = useCallback(
     (projectId: string, newTitle: string, tasks: IToDoTask[]) => {
-      const idx = projects.findIndex((project) => project.id === projectId);
       setProjects(() => {
+        const idx = projects.findIndex((project) => project.id === projectId);
         return projects.splice(idx, 1, {
           id: projectId,
           title: newTitle,

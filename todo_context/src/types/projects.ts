@@ -9,3 +9,8 @@ export interface IToDoProject {
   title: string;
   tasks: IToDoTask[];
 }
+
+export interface ProjectItem {
+  project: IToDoProject;
+  projectId: string;
+}

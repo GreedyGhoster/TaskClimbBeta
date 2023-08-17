@@ -95,7 +95,11 @@ export const AppSidebar = () => {
               }
             })
             .map((project) => (
-              <AppProjectItem project={project} projectId={projectId} />
+              <AppProjectItem
+                key={project.id}
+                project={project}
+                projectId={projectId!}
+              />
             ))}
         </List>
       </Box>

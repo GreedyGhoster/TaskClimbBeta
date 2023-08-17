@@ -35,6 +35,8 @@ export function ProjectPage() {
     return <NotFound />;
   }
 
+  console.log(project.tasks);
+
   return (
     <Box
       sx={{
