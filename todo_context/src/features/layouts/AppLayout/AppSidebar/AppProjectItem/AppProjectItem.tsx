@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@emotion/react";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Box from "@mui/material/Box";
@@ -6,81 +5,81 @@ import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import TextField from "@mui/material/TextField";
-import { useState } from "react";
-import { useTodo } from "../../../../../hooks";
-import { changeTheme } from "../../../../../custom/theme/changetheme";
-import { ProjectItem } from "../../../../../types";
+import {FC} from "react";
+import {UseRenderModeProvider, useTodo} from "../../../../../hooks";
+import {EditProjectForm} from "./EditProjectForm";
+import {IToDoProject, RenderMode} from "../../../../../types";
+import {useParams} from "react-router-dom";
+import {RenderModeController} from "../../../../../components/ctrl";
 
-export function AppProjectItem({ project, projectId }: ProjectItem) {
-  const { deleteProject, editProject } = useTodo();
-  const [projectEditClicked, setProjectEditClicked] = useState<boolean>(false);
-  const [projectTitle, setProjectTitle] = useState<string>(project.title);
-  const addEditProject = () => {
-    if (project!.title.trim() !== "") {
-      return setProjectEditClicked(!projectEditClicked);
-    } else {
-      return setProjectEditClicked(projectEditClicked);
-    }
-  };
+interface Props {
+  project: IToDoProject;
+}
+
+const AppProjectItem: FC<Props> = ({project}) => {
+  const {deleteProject} = useTodo();
+  const {projectId: currentProjectId} = useParams<{ projectId: string }>();
 
   return (
     <ListItem
+      component={'div'}
       sx={{
         paddingRight: 0,
       }}
       key={project.id}
     >
-      {projectEditClicked === false ? (
-        <ListItemButton
-          selected={project.id === projectId}
-          sx={{}}
-          href={project.id}
-        >
-          <ListItemText
-            sx={{
-              overflowWrap: "break-word",
-            }}
-            primary={projectTitle}
-          />
-        </ListItemButton>
-      ) : (
-        <TextField
-          variant="standard"
-          value={projectTitle}
-          inputProps={{ maxLength: 20 }}
-          onChange={(e) => {
-            setProjectTitle(e.target.value);
-            editProject(project.id, projectTitle, project.tasks);
-          }}
-        />
-      )}
-      <Box
-        sx={{
-          marginTop: "1.5%",
-          display: "inline-flex",
-          width: "40%",
-        }}
-      >
-        <Button
-          sx={{
-            width: "5px",
-          }}
-          onClick={() => addEditProject()}
-        >
-          <ThemeProvider theme={changeTheme}>
-            <CreateIcon
-              sx={{
-                marginRight: "5px",
-              }}
-              color="secondary"
+      <UseRenderModeProvider defaultMode={RenderMode.View}>
+        <RenderModeController
+          renderEdit={(onChangeRenderMode) => (
+            <EditProjectForm
+              project={project}
+              onCancel={() => onChangeRenderMode(RenderMode.View)}
             />
-          </ThemeProvider>
-        </Button>
-        <Button onClick={() => deleteProject(project.id)}>
-          <DeleteForeverIcon color="error" />
-        </Button>
-      </Box>
+          )}
+          renderView={(onChangeRenderMode) => (
+            <>
+              <ListItemButton
+                selected={project.id === currentProjectId}
+                sx={{}}
+                href={project.id}
+              >
+                <ListItemText
+                  sx={{
+                    overflowWrap: "break-word",
+                  }}
+                  primary={project.title}
+                />
+              </ListItemButton>
+              <Box
+                sx={{
+                  marginTop: "1.5%",
+                  display: "inline-flex",
+                  width: "40%",
+                }}
+              >
+                <Button
+                  sx={{
+                    width: "5px",
+                  }}
+                  onClick={() => onChangeRenderMode(RenderMode.Edit)}
+                >
+                  <CreateIcon
+                    sx={{
+                      marginRight: "5px",
+                    }}
+                    color="secondary"
+                  />
+                </Button>
+                <Button onClick={() => deleteProject(project.id)}>
+                  <DeleteForeverIcon color="error"/>
+                </Button>
+              </Box>
+            </>
+          )}
+        />
+      </UseRenderModeProvider>
     </ListItem>
   );
 }
+
+export default AppProjectItem;

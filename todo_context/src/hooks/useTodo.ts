@@ -1,157 +1,116 @@
 import constate from "constate";
-import { useCallback, useMemo, useState } from "react";
-import { IToDoProject, IToDoTask } from "../types";
-import { v4 as uuidv4 } from "uuid";
+import {useCallback, useMemo, useState} from "react";
+import {AddToDoTaskFormValues, EditToDoTaskFormValues, IToDoProject, IToDoTask} from "../types";
+import {v4 as uuidv4} from "uuid";
+import _orderBy from "lodash/orderBy";
 
 function useTodoFunc() {
   const [projects, setProjects] = useState<IToDoProject[]>([
-    { id: "home", title: "Home", tasks: [] },
+    {id: "home", title: "Home"},
   ]);
-  const [tasks, setTasks] = useState<IToDoTask[]>([]);
+
+  const [tasks, setTasks] = useState<IToDoTask[]>([])
+
   const addProject = useCallback((projectName: string) => {
     setProjects((prev) => [
-      { id: uuidv4(), title: projectName, tasks: tasks },
+      {id: uuidv4(), title: projectName},
       ...prev,
     ]);
   }, []);
 
   const findProject = useCallback(
-    (projectId: string) => {
-      return projects.find((project) => project.id === projectId);
+    (projectId?: string) => {
+      return projectId
+        ? projects.find((x) => x.id === projectId)
+        : undefined;
     },
     [projects]
   );
 
+  const getTasksByProject = useCallback((projectId?: string, searchTerm?: string) => {
+    let filteredTasks = tasks;
+    // поиск по названию
+    if (searchTerm) {
+      filteredTasks = tasks.filter(x => x.title.includes(searchTerm));
+    }
+
+    return _orderBy(filteredTasks
+        .filter(x => x.projectId === projectId)
+      , ['createdAt'], ['desc'])
+  }, [tasks])
+
   const findTask = useCallback(
-    (arrayTasks: IToDoTask[], taskId: string) => {
-      return arrayTasks.find((task) => task.id === taskId);
+    (projectId?: string, taskId?: string) => {
+      return tasks.find(x => x.id === taskId && x.projectId === projectId);
     },
     [tasks]
   );
 
-  const addTask = useCallback(
-    (
-      projectId: string,
-      taskName: string,
-      status: string,
-      description: string
-    ) => {
-      setProjects((prev) => {
-        const next = [...prev];
-        const project = next.find((project) => project.id === projectId);
-        if (project) {
-          setTasks(
-            (project.tasks = [
-              {
-                title: taskName,
-                id: uuidv4(),
-                status: status,
-                description: description,
-              },
-              ...project.tasks,
-            ])
-          );
+  const addTask = useCallback((projectId: string, newTask: AddToDoTaskFormValues,) => {
+      setTasks((prev) => {
+        return [
+          {
+            id: uuidv4(),
+            projectId: projectId,
+            createdAt: new Date(),
+            ...newTask,
+          },
+          ...prev
+        ]
+      });
+    },
+    []
+  );
+
+  const editTask = useCallback((taskId: string, editingTask: EditToDoTaskFormValues) => {
+      setTasks((prev) => {
+        const next = [...prev]
+        const task = next.find((x) => x.id === taskId);
+        if (!task) {
+          console.log(`Задача ${taskId} не найдена`)
+          return prev
+        } else {
+          task.title = editingTask.title;
+          task.status = editingTask.status;
+          task.description = editingTask.description;
+          return next
         }
-        return next;
-      });
-    },
-    []
-  );
-
-  const editStatus = useCallback(
-    (
-      taskId: string,
-      arrayTasks: IToDoTask[],
-      title: string,
-      newStatus: string,
-      description: string
-    ) => {
-      const idx = arrayTasks.findIndex((task) => task.id === taskId);
-      setTasks(() => {
-        return arrayTasks.splice(idx, 1, {
-          title: title,
-          id: taskId,
-          status: newStatus,
-          description: description,
-        });
-      });
-    },
-    []
-  );
-
-  const editTitle = useCallback(
-    (
-      taskId: string,
-      arrayTasks: IToDoTask[],
-      newTitle: string,
-      description: string,
-      status: string
-    ) => {
-      const idx = arrayTasks.findIndex((task) => task.id === taskId);
-      setTasks(() => {
-        return arrayTasks.splice(idx, 1, {
-          title: newTitle,
-          id: taskId,
-          status: status,
-          description: description,
-        });
-      });
-    },
-    []
-  );
-
-  const editDescription = useCallback(
-    (
-      taskId: string,
-      arrayTasks: IToDoTask[],
-      title: string,
-      newDescription: string,
-      status: string
-    ) => {
-      const idx = arrayTasks.findIndex((task) => task.id === taskId);
-      setTasks(() => {
-        return arrayTasks.splice(idx, 1, {
-          title: title,
-          id: taskId,
-          status: status,
-          description: newDescription,
-        });
       });
     },
     []
   );
 
   const editProject = useCallback(
-    (projectId: string, newTitle: string, tasks: IToDoTask[]) => {
-      setProjects(() => {
-        const idx = projects.findIndex((project) => project.id === projectId);
-        return projects.splice(idx, 1, {
-          id: projectId,
-          title: newTitle,
-          tasks: tasks,
-        });
-      });
-    },
-    [projects]
-  );
-
-  const deleteTask = useCallback(
-    (arrayTasks: IToDoTask[], taskId: string) => {
-      const idx = arrayTasks.findIndex((task) => task.id === taskId);
-      setTasks(() => {
-        return arrayTasks.splice(idx, 1);
-      });
-    },
-    [tasks]
-  );
-
-  const deleteProject = useCallback(
-    (ProjectId: string) => {
+    (projectId: string, newTitle: string) => {
       setProjects((prev) => {
-        return prev.filter((project) => project.id !== ProjectId);
+        const next = [...prev]
+        const project = next.find((x) => x.id === projectId);
+        if (!project) {
+          console.log(`Проект ${projectId} не найден`)
+          return prev
+        } else {
+          project.title = newTitle;
+          return next
+        }
       });
     },
-    [projects]
+    []
+  );
+
+  const deleteTask = useCallback((taskId: string) => {
+      setTasks(prev => {
+        return prev.filter((x) => x.id !== taskId);
+      });
+    },
+    []
+  );
+
+  const deleteProject = useCallback((projectId: string) => {
+      setProjects((prev) => {
+        return prev.filter((project) => project.id !== projectId);
+      });
+    },
+    []
   );
 
   return useMemo(
@@ -162,11 +121,10 @@ function useTodoFunc() {
       addTask,
       deleteTask,
       deleteProject,
-      editTitle,
-      editStatus,
-      editDescription,
+      editTask,
       findTask,
       editProject,
+      getTasksByProject,
     }),
     [
       projects,
@@ -175,11 +133,10 @@ function useTodoFunc() {
       addTask,
       deleteTask,
       deleteProject,
-      editTitle,
-      editStatus,
-      editDescription,
+      editTask,
       findTask,
       editProject,
+      getTasksByProject,
     ]
   );
 }
