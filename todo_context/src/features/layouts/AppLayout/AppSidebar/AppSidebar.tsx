@@ -1,16 +1,14 @@
-import { Box, List, TextField, Typography } from "@mui/material";
-import { APP_SIDEBAR_WIDTH } from "./AppSidebar.constants";
-import { useTodo } from "../../../../hooks";
-import { FormProvider, useForm } from "react-hook-form";
-import { AddToDoProjectFormValues } from "../../../../types";
-import { useCallback, useState } from "react";
-import { FormTextField } from "../../../../components/form";
-import { useParams } from "react-router-dom";
-import { AppProjectItem } from "./AppProjectItem";
+import {Box, List, Stack, TextField, Typography} from "@mui/material";
+import {APP_SIDEBAR_WIDTH} from "./AppSidebar.constants";
+import {useTodo} from "../../../../hooks";
+import {FormProvider, useForm} from "react-hook-form";
+import {AddToDoProjectFormValues} from "../../../../types";
+import {useCallback, useState} from "react";
+import {FormTextField} from "../../../../components/form";
+import {AppProjectItem} from "./AppProjectItem";
 
 export const AppSidebar = () => {
-  const { projects, addProject } = useTodo();
-  const { projectId } = useParams<{ projectId: string }>();
+  const {projects, addProject} = useTodo();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const formMethods = useForm<AddToDoProjectFormValues>({
@@ -18,13 +16,13 @@ export const AppSidebar = () => {
       title: "",
     },
   });
-  const { handleSubmit, reset } = formMethods;
+  const {handleSubmit, reset} = formMethods;
 
   const handleSubmitForm = useCallback(
     async (values: AddToDoProjectFormValues) => {
       if (values.title.trim() !== "") {
         addProject(values.title);
-        reset({ title: "" });
+        reset({title: ""});
       }
     },
     [addProject, reset]
@@ -56,29 +54,25 @@ export const AppSidebar = () => {
         }}
       >
         <Typography variant="h6">Projects</Typography>
-        <FormProvider {...formMethods}>
-          <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
-            <FormTextField
-              inputProps={{ maxLength: 20 }}
-              name="title"
-              placeholder="Add project"
-            />
-          </Box>
-        </FormProvider>
-        <Box
-          sx={{
-            marginTop: "2%",
-          }}
-          component={"form"}
-        >
+        <Stack spacing={2}>
+          <FormProvider {...formMethods}>
+            <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
+              <FormTextField
+                fullWidth
+                inputProps={{maxLength: 20}}
+                name="title"
+                placeholder="Add project"
+              />
+            </Box>
+          </FormProvider>
           <TextField
-            inputProps={{ maxLength: 20 }}
+            inputProps={{maxLength: 20}}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             name={"title"}
             placeholder="Find project"
           />
-        </Box>
+        </Stack>
         <List
           sx={{
             display: "flex",
@@ -98,7 +92,6 @@ export const AppSidebar = () => {
               <AppProjectItem
                 key={project.id}
                 project={project}
-                projectId={projectId!}
               />
             ))}
         </List>

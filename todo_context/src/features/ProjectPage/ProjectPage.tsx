@@ -1,41 +1,31 @@
-import { useParams } from "react-router-dom";
-import { useTodo } from "../../hooks";
-import { NotFound } from "../NotFound";
-import { Box, List, TextField, Typography } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
-import { AddToDoTaskFormValues } from "../../types";
-import { FormTextField } from "../../components/form";
-import { useCallback, useState } from "react";
-import { ProjectTask } from "../ProjectTask";
+import {useParams} from "react-router-dom";
+import {useTodo} from "../../hooks";
+import {NotFound} from "../NotFound";
+import {Box, List, Typography} from "@mui/material";
+import {TaskListItem} from "./TaskListItem";
+import {AddTaskForm} from "./AddTaskForm";
+import {SearchTaskForm} from "./SearchTaskForm";
+import {useCallback, useEffect, useState} from "react";
 
 export function ProjectPage() {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const { findProject, addTask } = useTodo();
-  const { projectId } = useParams<{ projectId: string }>();
-  const project = findProject(projectId!);
-  const formMethods = useForm<AddToDoTaskFormValues>({
-    defaultValues: {
-      title: "",
-    },
-  });
 
-  const { handleSubmit, reset } = formMethods;
+  const [searchTerm, setSearchTerm] = useState<string>()
+  const {findProject, getTasksByProject} = useTodo();
+  const {projectId} = useParams<{ projectId: string }>();
+  const project = findProject(projectId);
+  const tasks = getTasksByProject(projectId, searchTerm);
 
-  const handleSubmitForm = useCallback(
-    async (values: AddToDoTaskFormValues) => {
-      if (values.title.trim() !== "") {
-        addTask(projectId!, values.title, "todo", "");
-        reset({ title: "" });
-      }
-    },
-    [addTask, reset, projectId]
-  );
+  const handleSearch = useCallback((newSearchTerm: string) => {
+    setSearchTerm(newSearchTerm)
+  }, [])
+
+  useEffect(() => {
+    setSearchTerm(undefined)
+  }, [projectId])
 
   if (!project) {
-    return <NotFound />;
+    return <NotFound/>;
   }
-
-  console.log(project.tasks);
 
   return (
     <Box
@@ -65,24 +55,13 @@ export function ProjectPage() {
         }}
         component={"div"}
       >
-        <Box component={"form"}>
-          <TextField
-            inputProps={{ maxLength: 43 }}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            name={"title"}
-            placeholder="Find task"
-          />
-        </Box>
-        <FormProvider {...formMethods}>
-          <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
-            <FormTextField
-              inputProps={{ maxLength: 43 }}
-              name={"title"}
-              placeholder="Add task"
-            />
-          </Box>
-        </FormProvider>
+        <SearchTaskForm
+          projectId={project.id}
+          onSearch={handleSearch}
+        />
+        <AddTaskForm
+          projectId={project.id}
+        />
       </Box>
       <Box
         sx={{
@@ -142,23 +121,17 @@ export function ProjectPage() {
           flexDirection: "column-reverse",
         }}
       >
-        {project.tasks.length > 0 ? (
+        {tasks.length > 0 ? (
           <>
-            {project.tasks
-              .filter((val) => {
-                if (
-                  searchTerm === "" ||
-                  val.title.toLowerCase().includes(searchTerm.toLowerCase())
-                ) {
-                  return val;
-                }
-              })
-              .map((task) => (
-                <ProjectTask key={task.id} task={task} projectId={projectId} />
-              ))}
+            {tasks.map((task) => (
+              <TaskListItem
+                key={task.id}
+                task={task}
+              />
+            ))}
           </>
         ) : (
-          <Box sx={{ textAlign: "center" }} component={"h2"}>
+          <Box sx={{textAlign: "center"}} component={"h2"}>
             No tasks
           </Box>
         )}

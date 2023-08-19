@@ -1,1 +1,1 @@
-export { AppProjectItem } from "./AppProjectItem";
+export { default as AppProjectItem } from "./AppProjectItem";
