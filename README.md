@@ -12,10 +12,10 @@ $ yarn dev
 Or refer to the [Vite](https://vitejs.dev/guide/) website
 
 ### Need to install
-1. react-hook-form
-2. uuidv4
-3. constate
-4. lodash
+1. [react-hook-form](https://www.react-hook-form.com/)
+2. [uuidv4](https://www.npmjs.com/package/uuidv4)
+3. [constate](https://github.com/diegohaz/constate)
+4. [lodash](https://lodash.com/)
 ```shell
 $ npm i react-hook-form
 $ npm i uuidv4
