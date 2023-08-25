@@ -41,7 +41,12 @@ const TaskListItem: FC<Props> = ({ task }) => {
               }}
               component={"div"}
             >
-              <ListItemButton href={TaskRoute(task.projectId, task.id)}>
+              <ListItemButton
+                sx={{
+                  textAlign: "center",
+                }}
+                href={TaskRoute(task.projectId, task.id)}
+              >
                 <ListItemText
                   sx={
                     task.status === "done"
