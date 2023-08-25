@@ -17,8 +17,9 @@ export function TaskPage() {
 
   const project = findProject(projectId);
   const task = findTask(projectId, taskId);
+
   const navigate = useNavigate();
-  const [taskDescription, setTaskDescription] = useState(task!.description);
+  const [taskDescription, setTaskDescription] = useState(task?.description);
 
   const goBack = () => {
     navigate(`/${projectId}`);

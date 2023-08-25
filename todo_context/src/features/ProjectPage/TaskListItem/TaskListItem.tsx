@@ -11,7 +11,6 @@ import { TaskChip } from "../../../components/tasks";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Box from "@mui/material/Box";
 
 interface Props {
@@ -37,25 +36,12 @@ const TaskListItem: FC<Props> = ({ task }) => {
         <RenderModeController
           renderView={(onChangeRenderMode) => (
             <ListItem
+              sx={{
+                padding: "0",
+              }}
               component={"div"}
-              secondaryAction={
-                <>
-                  <IconButton
-                    onClick={() => onChangeRenderMode(RenderMode.Edit)}
-                    color="secondary"
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton onClick={() => deleteTask(task.id)} color="error">
-                    <DeleteIcon />
-                  </IconButton>
-                </>
-              }
             >
               <ListItemButton href={TaskRoute(task.projectId, task.id)}>
-                <ListItemAvatar>
-                  <TaskChip status={task.status} />
-                </ListItemAvatar>
                 <ListItemText
                   sx={
                     task.status === "done"
@@ -72,6 +58,35 @@ const TaskListItem: FC<Props> = ({ task }) => {
                   secondary={task.description}
                 />
               </ListItemButton>
+              <Box
+                sx={{
+                  display: "inline-flex",
+                  justifyContent: "space-evenly",
+                  width: "35%",
+                }}
+              >
+                <Box
+                  sx={{
+                    marginTop: "4px",
+                    width: "4rem",
+                  }}
+                >
+                  <TaskChip status={task.status} />
+                </Box>
+                <Box>
+                  <IconButton
+                    onClick={() => onChangeRenderMode(RenderMode.Edit)}
+                    color="secondary"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Box>
+                <Box>
+                  <IconButton onClick={() => deleteTask(task.id)} color="error">
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
+              </Box>
             </ListItem>
           )}
           renderEdit={(onChangeRenderMode) => (

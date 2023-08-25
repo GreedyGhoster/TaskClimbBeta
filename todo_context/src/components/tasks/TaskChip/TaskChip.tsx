@@ -23,17 +23,19 @@ const TaskChip: FC<Props> = ({ status }) => {
   const getLabel = useMemo(() => {
     switch (status) {
       case ToDoTaskStatus.new:
-        return "Новая";
+        return "New";
       case ToDoTaskStatus.doing:
-        return "В работе";
+        return "Doing";
       case ToDoTaskStatus.done:
-        return "Завершена";
+        return "Done";
       default:
         return "-";
     }
   }, [status]);
 
-  return <Chip label={getLabel} color={getColor} variant="outlined" />;
+  return (
+    <Chip label={getLabel} color={getColor} variant="outlined" size="medium" />
+  );
 };
 
 export default TaskChip;

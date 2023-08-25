@@ -64,51 +64,14 @@ export function ProjectPage() {
           width: "43%",
           height: "1.6rem",
           margin: "auto",
-          marginTop: "2%",
+          marginTop: "0.5%",
           display: "inline-flex",
           borderBottom: "1px groove #ebebeb",
           fontSize: "1.3rem",
           textAlign: "center",
         }}
         component={"div"}
-      >
-        <Box
-          sx={{
-            height: "auto",
-            width: "50%",
-          }}
-          component={"div"}
-        >
-          Task Name
-        </Box>
-        <Box
-          sx={{
-            height: "auto",
-            width: "20%",
-          }}
-          component={"div"}
-        >
-          Status
-        </Box>
-        <Box
-          sx={{
-            height: "auto",
-            width: "20%",
-          }}
-          component={"div"}
-        >
-          Edit
-        </Box>
-        <Box
-          sx={{
-            height: "auto",
-            width: "20%",
-          }}
-          component={"div"}
-        >
-          Delete
-        </Box>
-      </Box>
+      ></Box>
       <List
         sx={{
           width: "100%",
