@@ -1,14 +1,18 @@
-import {Box, List, Stack, TextField, Typography} from "@mui/material";
-import {APP_SIDEBAR_WIDTH} from "./AppSidebar.constants";
-import {useTodo} from "../../../../hooks";
-import {FormProvider, useForm} from "react-hook-form";
-import {AddToDoProjectFormValues} from "../../../../types";
-import {useCallback, useState} from "react";
-import {FormTextField} from "../../../../components/form";
-import {AppProjectItem} from "./AppProjectItem";
+import { APP_SIDEBAR_WIDTH } from "./AppSidebar.constants";
+import { useTodo } from "../../../../hooks";
+import { FormProvider, useForm } from "react-hook-form";
+import { AddToDoProjectFormValues } from "../../../../types";
+import { useCallback, useState } from "react";
+import { FormTextField } from "../../../../components/form";
+import { AppProjectItem } from "./AppProjectItem";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import List from "@mui/material/List";
+import Box from "@mui/material/Box";
 
 export const AppSidebar = () => {
-  const {projects, addProject} = useTodo();
+  const { projects, addProject } = useTodo();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const formMethods = useForm<AddToDoProjectFormValues>({
@@ -16,13 +20,13 @@ export const AppSidebar = () => {
       title: "",
     },
   });
-  const {handleSubmit, reset} = formMethods;
+  const { handleSubmit, reset } = formMethods;
 
   const handleSubmitForm = useCallback(
     async (values: AddToDoProjectFormValues) => {
       if (values.title.trim() !== "") {
         addProject(values.title);
-        reset({title: ""});
+        reset({ title: "" });
       }
     },
     [addProject, reset]
@@ -59,14 +63,14 @@ export const AppSidebar = () => {
             <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
               <FormTextField
                 fullWidth
-                inputProps={{maxLength: 20}}
+                inputProps={{ maxLength: 20 }}
                 name="title"
                 placeholder="Add project"
               />
             </Box>
           </FormProvider>
           <TextField
-            inputProps={{maxLength: 20}}
+            inputProps={{ maxLength: 20 }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             name={"title"}
@@ -89,10 +93,7 @@ export const AppSidebar = () => {
               }
             })
             .map((project) => (
-              <AppProjectItem
-                key={project.id}
-                project={project}
-              />
+              <AppProjectItem key={project.id} project={project} />
             ))}
         </List>
       </Box>

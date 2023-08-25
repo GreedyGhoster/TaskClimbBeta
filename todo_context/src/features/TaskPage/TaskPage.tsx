@@ -1,15 +1,17 @@
-import {Box, Button, Typography} from "@mui/material";
-import {useNavigate, useParams} from "react-router-dom";
-import {useTodo} from "../../hooks";
-import {NotFound} from "../NotFound";
-import {TaskChip} from "../../components/tasks";
+import { useNavigate, useParams } from "react-router-dom";
+import { useTodo } from "../../hooks";
+import { NotFound } from "../NotFound";
+import { TaskChip } from "../../components/tasks";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 export function TaskPage() {
-  const {projectId, taskId} = useParams<{
+  const { projectId, taskId } = useParams<{
     projectId: string;
     taskId: string;
   }>();
-  const {findProject, findTask} = useTodo();
+  const { findProject, findTask } = useTodo();
 
   const project = findProject(projectId);
   const task = findTask(projectId, taskId);
@@ -20,7 +22,7 @@ export function TaskPage() {
   };
 
   if (!project || !task) {
-    return <NotFound/>;
+    return <NotFound />;
   }
 
   return (
@@ -47,7 +49,7 @@ export function TaskPage() {
         }}
       >
         <Typography variant="h4">{task.title}</Typography>
-        <TaskChip status={task.status}/>
+        <TaskChip status={task.status} />
         <Button
           sx={{
             float: "right",

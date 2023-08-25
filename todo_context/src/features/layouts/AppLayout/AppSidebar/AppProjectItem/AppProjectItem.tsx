@@ -1,28 +1,28 @@
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import {FC} from "react";
-import {UseRenderModeProvider, useTodo} from "../../../../../hooks";
-import {EditProjectForm} from "./EditProjectForm";
-import {IToDoProject, RenderMode} from "../../../../../types";
-import {useParams} from "react-router-dom";
-import {RenderModeController} from "../../../../../components/ctrl";
+import { FC } from "react";
+import { UseRenderModeProvider, useTodo } from "../../../../../hooks";
+import { EditProjectForm } from "./EditProjectForm";
+import { IToDoProject, RenderMode } from "../../../../../types";
+import { useParams } from "react-router-dom";
+import { RenderModeController } from "../../../../../components/ctrl";
+import Box from "@mui/material/Box";
 
 interface Props {
   project: IToDoProject;
 }
 
-const AppProjectItem: FC<Props> = ({project}) => {
-  const {deleteProject} = useTodo();
-  const {projectId: currentProjectId} = useParams<{ projectId: string }>();
+const AppProjectItem: FC<Props> = ({ project }) => {
+  const { deleteProject } = useTodo();
+  const { projectId: currentProjectId } = useParams<{ projectId: string }>();
 
   return (
     <ListItem
-      component={'div'}
+      component={"div"}
       sx={{
         paddingRight: 0,
       }}
@@ -71,7 +71,7 @@ const AppProjectItem: FC<Props> = ({project}) => {
                   />
                 </Button>
                 <Button onClick={() => deleteProject(project.id)}>
-                  <DeleteForeverIcon color="error"/>
+                  <DeleteForeverIcon color="error" />
                 </Button>
               </Box>
             </>
@@ -80,6 +80,6 @@ const AppProjectItem: FC<Props> = ({project}) => {
       </UseRenderModeProvider>
     </ListItem>
   );
-}
+};
 
 export default AppProjectItem;

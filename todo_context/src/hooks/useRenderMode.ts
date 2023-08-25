@@ -1,25 +1,27 @@
 import constate from "constate";
-import {useCallback, useMemo, useState} from "react";
-import {RenderMode} from "../types";
-
+import { useCallback, useMemo, useState } from "react";
+import { RenderMode } from "../types";
 
 interface UseRenderModeProps {
-  defaultMode: RenderMode
+  defaultMode: RenderMode;
 }
 
 function useRenderModeFunc(props: UseRenderModeProps) {
-  const [renderMode, setRenderMode] = useState(props.defaultMode ?? RenderMode.View)
+  const [renderMode, setRenderMode] = useState(
+    props.defaultMode ?? RenderMode.View
+  );
 
   const handleChangeRenderMode = useCallback((newRenderMode: RenderMode) => {
     setRenderMode(newRenderMode);
-  }, [])
+  }, []);
 
-
-  return useMemo(() => ({
-    handleChangeRenderMode,
-    renderMode
-  }), [renderMode, handleChangeRenderMode]);
-
+  return useMemo(
+    () => ({
+      handleChangeRenderMode,
+      renderMode,
+    }),
+    [renderMode, handleChangeRenderMode]
+  );
 }
 
 const constateResult = constate(useRenderModeFunc);

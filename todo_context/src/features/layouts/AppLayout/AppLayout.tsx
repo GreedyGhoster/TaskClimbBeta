@@ -1,7 +1,7 @@
-import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { APP_SIDEBAR_WIDTH, AppSidebar } from "./AppSidebar";
 import { UseTodoProvider } from "../../../hooks";
+import Box from "@mui/material/Box";
 
 export function AppLayout() {
   return (

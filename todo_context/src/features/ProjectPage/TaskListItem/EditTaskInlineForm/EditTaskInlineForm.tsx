@@ -1,18 +1,19 @@
-import {FC, useCallback} from 'react';
-import {EditToDoTaskFormValues, IToDoTask} from "../../../../types";
-import {useTodo} from "../../../../hooks";
-import {FormProvider, useForm} from "react-hook-form";
-import {IconButton, Stack} from "@mui/material";
-import {FormTextField} from "../../../../components/form";
+import { FC, useCallback } from "react";
+import { EditToDoTaskFormValues, IToDoTask } from "../../../../types";
+import { useTodo } from "../../../../hooks";
+import { FormProvider, useForm } from "react-hook-form";
+import { FormTextField } from "../../../../components/form";
 import CancelIcon from "@mui/icons-material/Cancel";
+import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
 
 interface Props {
   task: IToDoTask;
   onCancel: () => void;
 }
 
-const EditTaskInlineForm: FC<Props> = ({task, onCancel}) => {
-  const {editTask} = useTodo();
+const EditTaskInlineForm: FC<Props> = ({ task, onCancel }) => {
+  const { editTask } = useTodo();
 
   const formMethods = useForm<EditToDoTaskFormValues>({
     defaultValues: {
@@ -22,7 +23,7 @@ const EditTaskInlineForm: FC<Props> = ({task, onCancel}) => {
     },
   });
 
-  const {handleSubmit} = formMethods;
+  const { handleSubmit } = formMethods;
 
   const handleSubmitForm = useCallback(
     async (values: EditToDoTaskFormValues) => {
@@ -35,17 +36,18 @@ const EditTaskInlineForm: FC<Props> = ({task, onCancel}) => {
   return (
     <FormProvider {...formMethods}>
       <Stack
-        direction={'row'}
+        direction={"row"}
         spacing={1}
         component={"form"}
-        onSubmit={handleSubmit(handleSubmitForm)}>
+        onSubmit={handleSubmit(handleSubmitForm)}
+      >
         <FormTextField
-          inputProps={{maxLength: 43}}
+          inputProps={{ maxLength: 43 }}
           name={"title"}
           placeholder="Edit project"
         />
         <IconButton onClick={onCancel}>
-          <CancelIcon/>
+          <CancelIcon />
         </IconButton>
       </Stack>
     </FormProvider>

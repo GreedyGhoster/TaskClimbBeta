@@ -1,43 +1,39 @@
-import {FC, useMemo} from 'react';
-
-import {ToDoTaskStatus} from "../../../types";
-import {Chip} from "@mui/material";
+import { FC, useMemo } from "react";
+import { ToDoTaskStatus } from "../../../types";
+import { Chip } from "@mui/material";
 
 interface Props {
   status: ToDoTaskStatus;
 }
 
-const TaskChip: FC<Props> = ({status}) => {
-
+const TaskChip: FC<Props> = ({ status }) => {
   const getColor = useMemo(() => {
     switch (status) {
       case ToDoTaskStatus.new:
-        return 'default';
+        return "default";
       case ToDoTaskStatus.doing:
-        return 'info';
+        return "info";
       case ToDoTaskStatus.done:
-        return 'success';
+        return "success";
       default:
-        return 'default'
+        return "default";
     }
-  }, [status])
+  }, [status]);
 
   const getLabel = useMemo(() => {
     switch (status) {
       case ToDoTaskStatus.new:
-        return 'Новая';
+        return "Новая";
       case ToDoTaskStatus.doing:
-        return 'В работе';
+        return "В работе";
       case ToDoTaskStatus.done:
-        return 'Завершена';
+        return "Завершена";
       default:
-        return '-'
+        return "-";
     }
-  }, [status])
+  }, [status]);
 
-  return (
-    <Chip label={getLabel} color={getColor}/>
-  );
+  return <Chip label={getLabel} color={getColor} />;
 };
 
 export default TaskChip;

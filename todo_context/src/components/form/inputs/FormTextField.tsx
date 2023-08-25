@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { Controller, RegisterOptions } from "react-hook-form";
-import { TextField, TextFieldProps } from "@mui/material";
 import { objUtils } from "../../../utils";
+import TextField, { TextFieldProps } from "@mui/material/TextField";
 
 export interface FormTextFieldProps
   extends Omit<
