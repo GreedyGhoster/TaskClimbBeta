@@ -4,12 +4,15 @@ import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { UseRenderModeProvider, useTodo } from "../../../../../hooks";
 import { EditProjectForm } from "./EditProjectForm";
 import { IToDoProject, RenderMode } from "../../../../../types";
 import { useParams } from "react-router-dom";
 import { RenderModeController } from "../../../../../components/ctrl";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { changeTheme } from "../../../../../custom/theme/changetheme";
+import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 
 interface Props {
@@ -38,42 +41,51 @@ const AppProjectItem: FC<Props> = ({ project }) => {
           )}
           renderView={(onChangeRenderMode) => (
             <>
-              <ListItemButton
-                selected={project.id === currentProjectId}
-                sx={{}}
-                href={project.id}
+              <Tooltip
+                title={
+                  <Fragment>
+                    <Box
+                      sx={{
+                        marginTop: "1.5%",
+                        display: "inline-flex",
+                        width: "40%",
+                      }}
+                    >
+                      <Button
+                        sx={{
+                          width: "5px",
+                        }}
+                        onClick={() => onChangeRenderMode(RenderMode.Edit)}
+                      >
+                        <ThemeProvider theme={changeTheme}>
+                          <CreateIcon
+                            sx={{
+                              marginRight: "5px",
+                            }}
+                            color="secondary"
+                          />
+                        </ThemeProvider>
+                      </Button>
+                      <Button onClick={() => deleteProject(project.id)}>
+                        <DeleteForeverIcon color="error" />
+                      </Button>
+                    </Box>
+                  </Fragment>
+                }
+                placement="right"
               >
-                <ListItemText
-                  sx={{
-                    overflowWrap: "break-word",
-                  }}
-                  primary={project.title}
-                />
-              </ListItemButton>
-              <Box
-                sx={{
-                  marginTop: "1.5%",
-                  display: "inline-flex",
-                  width: "40%",
-                }}
-              >
-                <Button
-                  sx={{
-                    width: "5px",
-                  }}
-                  onClick={() => onChangeRenderMode(RenderMode.Edit)}
+                <ListItemButton
+                  selected={project.id === currentProjectId}
+                  href={project.id}
                 >
-                  <CreateIcon
+                  <ListItemText
                     sx={{
-                      marginRight: "5px",
+                      overflowWrap: "break-word",
                     }}
-                    color="secondary"
+                    primary={project.title}
                   />
-                </Button>
-                <Button onClick={() => deleteProject(project.id)}>
-                  <DeleteForeverIcon color="error" />
-                </Button>
-              </Box>
+                </ListItemButton>
+              </Tooltip>
             </>
           )}
         />

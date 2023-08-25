@@ -33,7 +33,7 @@ const TaskChip: FC<Props> = ({ status }) => {
     }
   }, [status]);
 
-  return <Chip label={getLabel} color={getColor} />;
+  return <Chip label={getLabel} color={getColor} variant="outlined" />;
 };
 
 export default TaskChip;

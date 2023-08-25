@@ -47,6 +47,7 @@ const EditProjectForm: FC<Props> = ({ project, onCancel }) => {
           inputProps={{ maxLength: 43 }}
           name={"title"}
           placeholder="Edit project"
+          variant="standard"
         />
         <IconButton onClick={onCancel}>
           <CancelIcon />

@@ -58,7 +58,7 @@ export const AppSidebar = () => {
         }}
       >
         <Typography variant="h6">Projects</Typography>
-        <Stack spacing={2}>
+        <Stack spacing={1}>
           <FormProvider {...formMethods}>
             <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
               <FormTextField
