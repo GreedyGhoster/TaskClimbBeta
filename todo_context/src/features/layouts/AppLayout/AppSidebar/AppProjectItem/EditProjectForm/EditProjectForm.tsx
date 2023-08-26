@@ -4,9 +4,9 @@ import {
   EditToDoProjectFormValues,
   IToDoProject,
 } from "../../../../../../types";
-
 import { FormTextField } from "../../../../../../components/form";
 import CancelIcon from "@mui/icons-material/Cancel";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import { FC, useCallback } from "react";
@@ -29,8 +29,10 @@ const EditProjectForm: FC<Props> = ({ project, onCancel }) => {
 
   const handleSubmitForm = useCallback(
     async (values: EditToDoProjectFormValues) => {
-      editProject(project.id, values.title);
-      onCancel();
+      if (values.title.trim() !== "") {
+        editProject(project.id, values.title);
+        onCancel();
+      }
     },
     [editProject, onCancel, project.id]
   );
@@ -44,14 +46,18 @@ const EditProjectForm: FC<Props> = ({ project, onCancel }) => {
         onSubmit={handleSubmit(handleSubmitForm)}
       >
         <FormTextField
-          inputProps={{ maxLength: 43 }}
+          inputProps={{ maxLength: 46 }}
           sx={{
-            width: "15rem",
+            width: "12.5rem",
           }}
           name={"title"}
           placeholder="Edit project"
           variant="standard"
+          color="warning"
         />
+        <IconButton onClick={onCancel}>
+          <AddCircleIcon />
+        </IconButton>
         <IconButton onClick={onCancel}>
           <CancelIcon />
         </IconButton>

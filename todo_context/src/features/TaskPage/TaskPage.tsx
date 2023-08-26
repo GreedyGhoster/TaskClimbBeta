@@ -52,7 +52,14 @@ export function TaskPage() {
           alignSelf: "center",
         }}
       >
-        <Typography variant="h4">{task.title}</Typography>
+        <Box
+          sx={{
+            overflowWrap: "anywhere",
+          }}
+          component={"div"}
+        >
+          <Typography variant="h4">{task.title}</Typography>
+        </Box>
         <Button
           sx={{
             float: "right",

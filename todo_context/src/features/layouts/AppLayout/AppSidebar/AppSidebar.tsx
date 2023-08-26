@@ -63,14 +63,14 @@ export const AppSidebar = () => {
             <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
               <FormTextField
                 fullWidth
-                inputProps={{ maxLength: 20 }}
+                inputProps={{ maxLength: 46 }}
                 name="title"
                 placeholder="Add project"
               />
             </Box>
           </FormProvider>
           <TextField
-            inputProps={{ maxLength: 20 }}
+            inputProps={{ maxLength: 46 }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             name={"title"}

@@ -66,7 +66,7 @@ export function ProjectPage() {
           margin: "auto",
           marginTop: "0.5%",
           display: "inline-flex",
-          borderBottom: "1px groove #ebebeb",
+          borderBottom: "1px groove #b5b3b3",
           fontSize: "1.3rem",
           textAlign: "center",
         }}

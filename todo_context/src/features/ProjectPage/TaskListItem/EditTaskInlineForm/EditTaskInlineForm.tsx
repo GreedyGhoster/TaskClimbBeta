@@ -6,6 +6,7 @@ import { FormTextField } from "../../../../components/form";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 interface Props {
   task: IToDoTask;
@@ -27,8 +28,10 @@ const EditTaskInlineForm: FC<Props> = ({ task, onCancel }) => {
 
   const handleSubmitForm = useCallback(
     async (values: EditToDoTaskFormValues) => {
-      editTask(task.id, values);
-      onCancel();
+      if (values.title.trim() !== "") {
+        editTask(task.id, values);
+        onCancel();
+      }
     },
     [editTask, onCancel, task.id]
   );
@@ -39,13 +42,25 @@ const EditTaskInlineForm: FC<Props> = ({ task, onCancel }) => {
         direction={"row"}
         spacing={1}
         component={"form"}
+        margin="dense"
         onSubmit={handleSubmit(handleSubmitForm)}
       >
         <FormTextField
           inputProps={{ maxLength: 43 }}
+          sx={{
+            height: "3rem",
+            width: "100%",
+            textAlign: "center",
+          }}
           name={"title"}
-          placeholder="Edit project"
+          variant="filled"
+          size="small"
+          color="warning"
+          placeholder="Edit task"
         />
+        <IconButton onClick={onCancel}>
+          <AddCircleIcon />
+        </IconButton>
         <IconButton onClick={onCancel}>
           <CancelIcon />
         </IconButton>

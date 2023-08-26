@@ -44,6 +44,8 @@ const TaskListItem: FC<Props> = ({ task }) => {
               <ListItemButton
                 sx={{
                   textAlign: "center",
+                  height: "3rem",
+                  overflowWrap: "break-word",
                 }}
                 href={TaskRoute(task.projectId, task.id)}
               >
