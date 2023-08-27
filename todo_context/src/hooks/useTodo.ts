@@ -63,7 +63,7 @@ function useTodoFunc() {
         const date: Date = new Date();
         const fullDate = `${date.getDate()}.${
           date.getMonth() + 1
-        }.${date.getFullYear()} in ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} (h:min:sec)`;
+        }.${date.getFullYear()} in ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
         return [
           {
             id: uuidv4(),

@@ -9,6 +9,7 @@ import { EditToDoTaskFormValues } from "../../types";
 import { FormProvider, useForm } from "react-hook-form";
 import { useCallback } from "react";
 import { FormTextField } from "../../components/form";
+import Tooltip from "@mui/material/Tooltip";
 
 export function TaskPage() {
   const { projectId, taskId } = useParams<{
@@ -84,17 +85,19 @@ export function TaskPage() {
             component={"span"}
           >{` Created at: ${task.createdAt}`}</Box>
         </Box>
-        <Button
-          sx={{
-            float: "right",
-            margin: "auto",
-            marginRight: 0,
-          }}
-          onClick={goBack}
-          variant="outlined"
-        >
-          Back
-        </Button>
+        <Tooltip title="Changes are not saved !" placement="bottom">
+          <Button
+            sx={{
+              float: "right",
+              margin: "auto",
+              marginRight: 0,
+            }}
+            onClick={goBack}
+            variant="outlined"
+          >
+            Back
+          </Button>
+        </Tooltip>
       </Box>
       <Box
         sx={{
