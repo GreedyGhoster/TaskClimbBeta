@@ -23,6 +23,8 @@ interface Props {
 const TaskListItem: FC<Props> = ({ task }) => {
   const { deleteTask } = useTodo();
 
+  console.log(task);
+
   return (
     <UseRenderModeProvider defaultMode={RenderMode.View}>
       <Box
@@ -66,7 +68,6 @@ const TaskListItem: FC<Props> = ({ task }) => {
                           }
                     }
                     primary={task.title}
-                    secondary={task.description}
                   />
                 </ListItemButton>
               </Tooltip>

@@ -1,12 +1,14 @@
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTodo } from "../../hooks";
 import { NotFound } from "../NotFound";
 import { TaskChip } from "../../components/tasks";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import { EditToDoTaskFormValues } from "../../types";
+import { FormProvider, useForm } from "react-hook-form";
+import { useCallback } from "react";
+import { FormTextField } from "../../components/form";
 
 export function TaskPage() {
   const { projectId, taskId } = useParams<{
@@ -19,7 +21,6 @@ export function TaskPage() {
   const task = findTask(projectId, taskId);
 
   const navigate = useNavigate();
-  const [taskDescription, setTaskDescription] = useState(task?.description);
 
   const goBack = () => {
     navigate(`/${projectId}`);
@@ -28,6 +29,23 @@ export function TaskPage() {
   if (!project || !task) {
     return <NotFound />;
   }
+
+  const formMethods = useForm<EditToDoTaskFormValues>({
+    defaultValues: {
+      description: task.description,
+      title: task.title,
+      status: task.status,
+    },
+  });
+
+  const { handleSubmit } = formMethods;
+
+  const handleClickForm = useCallback(
+    async (values: EditToDoTaskFormValues) => {
+      editTask(task.id, values);
+    },
+    [editTask, task.id]
+  );
 
   return (
     <Box
@@ -59,6 +77,12 @@ export function TaskPage() {
           component={"div"}
         >
           <Typography variant="h4">{task.title}</Typography>
+          <Box
+            sx={{
+              paddingTop: "5rem",
+            }}
+            component={"span"}
+          >{` Created at: ${task.createdAt}`}</Box>
         </Box>
         <Button
           sx={{
@@ -79,17 +103,18 @@ export function TaskPage() {
         }}
       >
         <TaskChip status={task.status} />
-        <TextField
-          sx={{
-            width: "100%",
-          }}
-          value={taskDescription}
-          onChange={(e) => setTaskDescription(e.target.value)}
-          spellCheck="false"
-          variant="standard"
-          placeholder="Description in several rows"
-          multiline
-        />
+        <FormProvider {...formMethods}>
+          <FormTextField
+            sx={{
+              width: "100%",
+            }}
+            name={"description"}
+            spellCheck="false"
+            variant="standard"
+            placeholder="Description in several rows"
+            multiline
+          />
+        </FormProvider>
         <Button
           sx={{
             float: "right",
@@ -99,7 +124,7 @@ export function TaskPage() {
           }}
           color="success"
           variant="outlined"
-          onClick={() => editTask(task.id, task)}
+          onClick={handleSubmit(handleClickForm)}
         >
           Save
         </Button>

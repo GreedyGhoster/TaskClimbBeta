@@ -60,11 +60,15 @@ function useTodoFunc() {
   const addTask = useCallback(
     (projectId: string, newTask: AddToDoTaskFormValues) => {
       setTasks((prev) => {
+        const date: Date = new Date();
+        const fullDate = `${date.getDate()}.${
+          date.getMonth() + 1
+        }.${date.getFullYear()} in ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} (h:min:sec)`;
         return [
           {
             id: uuidv4(),
             projectId: projectId,
-            createdAt: new Date(),
+            createdAt: fullDate,
             ...newTask,
           },
           ...prev,
