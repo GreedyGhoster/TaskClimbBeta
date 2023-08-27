@@ -10,3 +10,14 @@ export const changeTheme = createTheme({
     },
   },
 });
+
+export const changeThemeStatus = createTheme({
+  palette: {
+    secondary: {
+      light: "#c49914",
+      main: "#c49914",
+      dark: "#ba000d",
+      contrastText: "#000",
+    },
+  },
+});

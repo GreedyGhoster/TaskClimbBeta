@@ -1,6 +1,8 @@
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { changeTheme } from "../../../custom/theme/changetheme";
 import { FC } from "react";
 import { UseRenderModeProvider, useTodo } from "../../../hooks";
 import { IToDoTask, RenderMode } from "../../../types";
@@ -11,6 +13,7 @@ import { TaskChip } from "../../../components/tasks";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 
 interface Props {
@@ -41,30 +44,32 @@ const TaskListItem: FC<Props> = ({ task }) => {
               }}
               component={"div"}
             >
-              <ListItemButton
-                sx={{
-                  textAlign: "center",
-                  height: "3rem",
-                  overflowWrap: "break-word",
-                }}
-                href={TaskRoute(task.projectId, task.id)}
-              >
-                <ListItemText
-                  sx={
-                    task.status === "done"
-                      ? {
-                          padding: "0",
-                          color: "#919191",
-                          textDecoration: "line-through",
-                        }
-                      : {
-                          padding: "0",
-                        }
-                  }
-                  primary={task.title}
-                  secondary={task.description}
-                />
-              </ListItemButton>
+              <Tooltip title={`Created at: ${task.createdAt}`} placement="left">
+                <ListItemButton
+                  sx={{
+                    textAlign: "center",
+                    height: "3rem",
+                    overflowWrap: "break-word",
+                  }}
+                  href={TaskRoute(task.projectId, task.id)}
+                >
+                  <ListItemText
+                    sx={
+                      task.status === "done"
+                        ? {
+                            padding: "0",
+                            color: "#919191",
+                            textDecoration: "line-through",
+                          }
+                        : {
+                            padding: "0",
+                          }
+                    }
+                    primary={task.title}
+                    secondary={task.description}
+                  />
+                </ListItemButton>
+              </Tooltip>
               <Box
                 sx={{
                   display: "inline-flex",
@@ -74,19 +79,21 @@ const TaskListItem: FC<Props> = ({ task }) => {
               >
                 <Box
                   sx={{
-                    marginTop: "4px",
+                    marginTop: "5px",
                     width: "4rem",
                   }}
                 >
                   <TaskChip status={task.status} />
                 </Box>
                 <Box>
-                  <IconButton
-                    onClick={() => onChangeRenderMode(RenderMode.Edit)}
-                    color="secondary"
-                  >
-                    <EditIcon />
-                  </IconButton>
+                  <ThemeProvider theme={changeTheme}>
+                    <IconButton
+                      onClick={() => onChangeRenderMode(RenderMode.Edit)}
+                      color="secondary"
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </ThemeProvider>
                 </Box>
                 <Box>
                   <IconButton onClick={() => deleteTask(task.id)} color="error">

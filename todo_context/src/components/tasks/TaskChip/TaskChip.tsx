@@ -1,4 +1,6 @@
 import { FC, useMemo } from "react";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { changeThemeStatus } from "../../../custom/theme/changetheme";
 import { ToDoTaskStatus } from "../../../types";
 import { Chip } from "@mui/material";
 
@@ -10,9 +12,9 @@ const TaskChip: FC<Props> = ({ status }) => {
   const getColor = useMemo(() => {
     switch (status) {
       case ToDoTaskStatus.new:
-        return "default";
-      case ToDoTaskStatus.doing:
         return "info";
+      case ToDoTaskStatus.doing:
+        return "secondary";
       case ToDoTaskStatus.done:
         return "success";
       default:
@@ -34,13 +36,15 @@ const TaskChip: FC<Props> = ({ status }) => {
   }, [status]);
 
   return (
-    <Chip
-      label={getLabel}
-      color={getColor}
-      variant="outlined"
-      size="medium"
-      onClick={() => console.log("Click")}
-    />
+    <ThemeProvider theme={changeThemeStatus}>
+      <Chip
+        label={getLabel}
+        color={getColor}
+        variant="outlined"
+        size="medium"
+        onClick={() => console.log("Click")}
+      />
+    </ThemeProvider>
   );
 };
 
