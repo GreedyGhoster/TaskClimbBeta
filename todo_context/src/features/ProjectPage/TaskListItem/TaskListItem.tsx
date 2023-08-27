@@ -46,7 +46,7 @@ const TaskListItem: FC<Props> = ({ task }) => {
               }}
               component={"div"}
             >
-              <Tooltip title={`Created at: ${task.createdAt}`} placement="left">
+              <Tooltip title="Click to view the description" placement="left">
                 <ListItemButton
                   sx={{
                     textAlign: "center",
