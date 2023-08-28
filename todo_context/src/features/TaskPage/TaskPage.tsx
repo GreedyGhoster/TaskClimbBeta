@@ -85,7 +85,7 @@ export function TaskPage() {
             component={"span"}
           >{` Created at: ${task.createdAt}`}</Box>
         </Box>
-        <Tooltip title="Changes are not saved !" placement="bottom">
+        <Tooltip title="Go back" placement="bottom">
           <Button
             sx={{
               float: "right",
@@ -105,7 +105,7 @@ export function TaskPage() {
           alignSelf: "center",
         }}
       >
-        <TaskChip status={task.status} />
+        <TaskChip status={task.status} task={task} />
         <FormProvider {...formMethods}>
           <FormTextField
             sx={{
@@ -118,19 +118,21 @@ export function TaskPage() {
             multiline
           />
         </FormProvider>
-        <Button
-          sx={{
-            float: "right",
-            marginBottom: "2%",
-            marginTop: "2%",
-            marginRight: "1%",
-          }}
-          color="success"
-          variant="outlined"
-          onClick={handleSubmit(handleClickForm)}
-        >
-          Save
-        </Button>
+        <Tooltip title="Save changes">
+          <Button
+            sx={{
+              float: "right",
+              marginBottom: "2%",
+              marginTop: "2%",
+              marginRight: "1%",
+            }}
+            color="success"
+            variant="outlined"
+            onClick={handleSubmit(handleClickForm)}
+          >
+            Save
+          </Button>
+        </Tooltip>
       </Box>
     </Box>
   );

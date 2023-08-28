@@ -61,9 +61,9 @@ function useTodoFunc() {
     (projectId: string, newTask: AddToDoTaskFormValues) => {
       setTasks((prev) => {
         const date: Date = new Date();
-        const fullDate = `${date.getDate()}.${
+        const fullDate: string = `${date.getDate()}.${
           date.getMonth() + 1
-        }.${date.getFullYear()} in ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        }.${date.getFullYear()}/${date.getHours()}:${date.getMinutes()}`;
         return [
           {
             id: uuidv4(),

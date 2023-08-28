@@ -23,8 +23,6 @@ interface Props {
 const TaskListItem: FC<Props> = ({ task }) => {
   const { deleteTask } = useTodo();
 
-  console.log(task);
-
   return (
     <UseRenderModeProvider defaultMode={RenderMode.View}>
       <Box
@@ -84,7 +82,7 @@ const TaskListItem: FC<Props> = ({ task }) => {
                     width: "4rem",
                   }}
                 >
-                  <TaskChip status={task.status} />
+                  <TaskChip status={task.status} task={task} />
                 </Box>
                 <Box>
                   <ThemeProvider theme={changeTheme}>
