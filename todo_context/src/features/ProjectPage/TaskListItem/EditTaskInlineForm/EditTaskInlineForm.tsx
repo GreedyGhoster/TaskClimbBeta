@@ -59,7 +59,7 @@ const EditTaskInlineForm: FC<Props> = ({ task, onCancel }) => {
           placeholder="Edit task"
         />
         <IconButton onClick={handleSubmit(handleSubmitForm)}>
-          <AddCircleIcon />
+          <AddCircleIcon color="success" />
         </IconButton>
         <IconButton onClick={onCancel}>
           <CancelIcon />

@@ -56,7 +56,7 @@ const EditProjectForm: FC<Props> = ({ project, onCancel }) => {
           color="warning"
         />
         <IconButton onClick={handleSubmit(handleSubmitForm)}>
-          <AddCircleIcon />
+          <AddCircleIcon color="success" />
         </IconButton>
         <IconButton onClick={onCancel}>
           <CancelIcon />
