@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 
-export default function Greeting() {
+export function Greeting() {
   return (
     <Box
       sx={{

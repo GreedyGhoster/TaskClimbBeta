@@ -1,7 +1,7 @@
 export enum ToDoTaskStatus {
-  new = "new",
-  doing = "doing",
-  done = "done",
+  new = "New",
+  doing = "Doing",
+  done = "Done",
 }
 
 export interface AddToDoTaskFormValues {

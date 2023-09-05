@@ -1,15 +1,12 @@
 import { FC, useMemo } from "react";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import { changeThemeStatus } from "../../../custom/theme/changetheme";
-import { IToDoTask, ToDoTaskStatus } from "../../../types";
+import { ToDoTaskStatus } from "../../../types";
 import { Chip } from "@mui/material";
 
 interface Props {
   status: ToDoTaskStatus;
-  task: IToDoTask;
 }
 
-const TaskChip: FC<Props> = ({ status, task }) => {
+const TaskChip: FC<Props> = ({ status }) => {
   const getColor = useMemo(() => {
     switch (status) {
       case ToDoTaskStatus.new:
@@ -37,15 +34,7 @@ const TaskChip: FC<Props> = ({ status, task }) => {
   }, [status]);
 
   return (
-    <ThemeProvider theme={changeThemeStatus}>
-      <Chip
-        label={getLabel}
-        color={getColor}
-        variant="outlined"
-        size="medium"
-        onClick={() => console.log(task)}
-      />
-    </ThemeProvider>
+    <Chip label={getLabel} color={getColor} variant="outlined" size="medium" />
   );
 };
 

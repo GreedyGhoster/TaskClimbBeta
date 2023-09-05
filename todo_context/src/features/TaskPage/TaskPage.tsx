@@ -105,7 +105,7 @@ export function TaskPage() {
           alignSelf: "center",
         }}
       >
-        <TaskChip status={task.status} task={task} />
+        <TaskChip status={task.status} />
         <FormProvider {...formMethods}>
           <FormTextField
             sx={{

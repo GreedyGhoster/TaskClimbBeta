@@ -5,6 +5,7 @@ import {
   EditToDoTaskFormValues,
   IToDoProject,
   IToDoTask,
+  ToDoTaskStatus,
 } from "../types";
 import { v4 as uuidv4 } from "uuid";
 import _orderBy from "lodash/orderBy";
@@ -67,8 +68,10 @@ function useTodoFunc() {
         return [
           {
             id: uuidv4(),
+
             projectId: projectId,
             createdAt: fullDate,
+            // status: "new",
             ...newTask,
           },
           ...prev,
@@ -88,7 +91,6 @@ function useTodoFunc() {
           return prev;
         } else {
           task.title = editingTask.title;
-          task.status = editingTask.status;
           task.description = editingTask.description;
           return next;
         }
@@ -123,6 +125,32 @@ function useTodoFunc() {
     });
   }, []);
 
+  const statusSwitcher = useCallback((taskId: string, statusName: string) => {
+    setTasks((prev) => {
+      const next = [...prev];
+      const task = next.find((val) => val.id === taskId);
+      if (!task) {
+        console.log(`Задача ${taskId} не найдена`);
+        return prev;
+      } else {
+        switch (statusName) {
+          case "New":
+            task.status = ToDoTaskStatus.new;
+            return next;
+          case "Doing":
+            task.status = ToDoTaskStatus.doing;
+            return next;
+          case "Done":
+            task.status = ToDoTaskStatus.done;
+            return next;
+          default:
+            task.status = ToDoTaskStatus.new;
+            return next;
+        }
+      }
+    });
+  }, []);
+
   return useMemo(
     () => ({
       projects,
@@ -135,6 +163,7 @@ function useTodoFunc() {
       findTask,
       editProject,
       getTasksByProject,
+      statusSwitcher,
     }),
     [
       projects,
@@ -147,6 +176,7 @@ function useTodoFunc() {
       findTask,
       editProject,
       getTasksByProject,
+      statusSwitcher,
     ]
   );
 }

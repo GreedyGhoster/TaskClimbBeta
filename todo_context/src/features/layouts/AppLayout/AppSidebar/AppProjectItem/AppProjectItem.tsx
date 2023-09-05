@@ -10,8 +10,6 @@ import { EditProjectForm } from "./EditProjectForm";
 import { IToDoProject, RenderMode } from "../../../../../types";
 import { useParams } from "react-router-dom";
 import { RenderModeController } from "../../../../../components/ctrl";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import { changeTheme } from "../../../../../custom/theme/changetheme";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 
@@ -57,14 +55,12 @@ const AppProjectItem: FC<Props> = ({ project }) => {
                         }}
                         onClick={() => onChangeRenderMode(RenderMode.Edit)}
                       >
-                        <ThemeProvider theme={changeTheme}>
-                          <CreateIcon
-                            sx={{
-                              marginRight: "5px",
-                            }}
-                            color="secondary"
-                          />
-                        </ThemeProvider>
+                        <CreateIcon
+                          sx={{
+                            marginRight: "5px",
+                          }}
+                          color="secondary"
+                        />
                       </Button>
                       <Button onClick={() => deleteProject(project.id)}>
                         <DeleteForeverIcon color="error" />

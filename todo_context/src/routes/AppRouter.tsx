@@ -3,8 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { AppLayout } from "../features/layouts/AppLayout";
 import { ProjectPage } from "../features/ProjectPage";
 import { TaskPage } from "../features/TaskPage";
-import Greeting from "../components/Greeting/Greeting";
-
+import { Greeting } from "../components/Greeting";
 export default function AppRouter() {
   return (
     <Routes>
