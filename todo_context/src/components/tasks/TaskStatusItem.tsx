@@ -35,6 +35,19 @@ const TaskStatusItem: FC<Props> = ({ task }) => {
     }
   }
 
+  const getColorByStatus = () => {
+    switch (task.status) {
+      case "New":
+        return "#29b6f6";
+      case "Doing":
+        return "#ffae42";
+      case "Done":
+        return "#66bb6a";
+      default:
+        return "#29b6f6";
+    }
+  };
+
   const handleMenuItemClick = (
     _event: React.MouseEvent<HTMLElement>,
     index: number
@@ -53,7 +66,14 @@ const TaskStatusItem: FC<Props> = ({ task }) => {
 
   return (
     <Box>
-      <Button onClick={handleClickListItem}>{options[selectedIndex]}</Button>
+      <Button
+        sx={{
+          color: getColorByStatus,
+        }}
+        onClick={handleClickListItem}
+      >
+        {options[selectedIndex]}
+      </Button>
       <Menu
         id="lock-menu"
         anchorEl={anchorEl}

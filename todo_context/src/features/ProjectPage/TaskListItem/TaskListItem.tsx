@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
-import TaskStatusItem from "../../../components/tasks/TaskStatusItem";
+import { TaskChip } from "../../../components/tasks";
 
 interface Props {
   task: IToDoTask;
@@ -20,8 +20,6 @@ interface Props {
 
 const TaskListItem: FC<Props> = ({ task }) => {
   const { deleteTask } = useTodo();
-
-  console.log(task);
 
   return (
     <UseRenderModeProvider defaultMode={RenderMode.View}>
@@ -82,7 +80,7 @@ const TaskListItem: FC<Props> = ({ task }) => {
                     width: "4rem",
                   }}
                 >
-                  <TaskStatusItem task={task} />
+                  <TaskChip status={task.status} />
                 </Box>
                 <Box>
                   <IconButton

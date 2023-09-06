@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useTodo } from "../../hooks";
 import { NotFound } from "../NotFound";
-import { TaskChip } from "../../components/tasks";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -10,6 +9,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useCallback } from "react";
 import { FormTextField } from "../../components/form";
 import Tooltip from "@mui/material/Tooltip";
+import TaskStatusItem from "../../components/tasks/TaskStatusItem";
 
 export function TaskPage() {
   const { projectId, taskId } = useParams<{
@@ -105,7 +105,7 @@ export function TaskPage() {
           alignSelf: "center",
         }}
       >
-        <TaskChip status={task.status} />
+        <TaskStatusItem task={task} />
         <FormProvider {...formMethods}>
           <FormTextField
             sx={{
