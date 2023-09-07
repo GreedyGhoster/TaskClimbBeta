@@ -35,7 +35,9 @@ function useTodoFunc() {
       let filteredTasks = tasks;
       // поиск по названию
       if (searchTerm) {
-        filteredTasks = tasks.filter((task) => task.title.includes(searchTerm));
+        filteredTasks = tasks.filter((task) =>
+          task.title.toLowerCase().includes(searchTerm)
+        );
       }
 
       return _orderBy(
@@ -68,10 +70,8 @@ function useTodoFunc() {
         return [
           {
             id: uuidv4(),
-
             projectId: projectId,
             createdAt: fullDate,
-            // status: "new",
             ...newTask,
           },
           ...prev,
