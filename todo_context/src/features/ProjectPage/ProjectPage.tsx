@@ -31,7 +31,6 @@ export function ProjectPage() {
   const countTasksByStatus = useMemo(() => {
     return {
       New: tasks.filter((task) => task.status === "New").length,
-      Doing: tasks.filter((task) => task.status === "Doing").length,
       Done: tasks.filter((task) => task.status === "Done").length,
     };
   }, [tasks]);
@@ -82,7 +81,6 @@ export function ProjectPage() {
         component={"div"}
       >
         <span>New: {countTasksByStatus.New}</span>
-        <span>Doing: {countTasksByStatus.Doing}</span>
         <span>Done: {countTasksByStatus.Done}</span>
       </Box>
       <List
