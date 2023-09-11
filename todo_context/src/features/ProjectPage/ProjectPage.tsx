@@ -4,7 +4,7 @@ import { NotFound } from "../NotFound";
 import { TaskListItem } from "./TaskListItem";
 import { AddTaskForm } from "./AddTaskForm";
 import { SearchTaskForm } from "./SearchTaskForm";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
@@ -27,6 +27,14 @@ export function ProjectPage() {
   if (!project) {
     return <NotFound />;
   }
+
+  const countTasksByStatus = useMemo(() => {
+    return {
+      New: tasks.filter((task) => task.status === "New").length,
+      Doing: tasks.filter((task) => task.status === "Doing").length,
+      Done: tasks.filter((task) => task.status === "Done").length,
+    };
+  }, [tasks]);
 
   return (
     <Box
@@ -73,13 +81,9 @@ export function ProjectPage() {
         }}
         component={"div"}
       >
-        <span>New: {tasks.filter((task) => task.status === "New").length}</span>
-        <span>
-          Doing: {tasks.filter((task) => task.status === "Doing").length}
-        </span>
-        <span>
-          Done: {tasks.filter((task) => task.status === "Done").length}
-        </span>
+        <span>New: {countTasksByStatus.New}</span>
+        <span>Doing: {countTasksByStatus.Doing}</span>
+        <span>Done: {countTasksByStatus.Done}</span>
       </Box>
       <List
         sx={{
