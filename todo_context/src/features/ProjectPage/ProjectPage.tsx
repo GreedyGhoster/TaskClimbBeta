@@ -61,17 +61,26 @@ export function ProjectPage() {
       </Box>
       <Box
         sx={{
-          width: "43%",
+          width: "45%",
           height: "1.6rem",
           margin: "auto",
           marginTop: "0.5%",
           display: "inline-flex",
           borderBottom: "1px groove #b5b3b3",
-          fontSize: "1.3rem",
+          gap: "1rem",
+          fontSize: "1.2rem",
           textAlign: "center",
         }}
         component={"div"}
-      ></Box>
+      >
+        <span>New: {tasks.filter((task) => task.status === "New").length}</span>
+        <span>
+          Doing: {tasks.filter((task) => task.status === "Doing").length}
+        </span>
+        <span>
+          Done: {tasks.filter((task) => task.status === "Done").length}
+        </span>
+      </Box>
       <List
         sx={{
           width: "100%",

@@ -55,7 +55,7 @@ export function TaskPage() {
         display: "flex",
         flexDirection: "column",
         borderRadius: "10px",
-        width: "40%",
+        width: "45%",
         height: "auto",
         margin: "auto",
         padding: "0",

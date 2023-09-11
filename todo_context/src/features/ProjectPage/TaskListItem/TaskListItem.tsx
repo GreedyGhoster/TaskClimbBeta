@@ -27,7 +27,7 @@ const TaskListItem: FC<Props> = ({ task }) => {
         sx={{
           height: "3rem",
           margin: "auto",
-          width: "43%",
+          width: "45%",
           padding: "0",
           borderBottom: "1px groove #343739",
           fontSize: "1.3rem",
