@@ -76,7 +76,7 @@ const TaskListItem: FC<Props> = ({ task }) => {
               >
                 <Box
                   sx={{
-                    marginTop: "5px",
+                    marginTop: "2px",
                     width: "4rem",
                   }}
                 >
