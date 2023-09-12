@@ -43,7 +43,7 @@ export const AppSidebar = () => {
         flexDirection: "column",
         width: APP_SIDEBAR_WIDTH,
         maxWidth: APP_SIDEBAR_WIDTH,
-        backgroundColor: "#373737",
+        backgroundColor: "#303030",
         zIndex: 1,
         overflow: "auto",
       }}
