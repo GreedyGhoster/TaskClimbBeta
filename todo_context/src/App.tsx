@@ -23,7 +23,7 @@ const LinkBehaviour = forwardRef<
 
 export default function App() {
   const matches = useMediaQuery("(min-width:1024px)");
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">("dark");
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
