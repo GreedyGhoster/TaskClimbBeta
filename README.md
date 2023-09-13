@@ -27,6 +27,7 @@ Or
 $ npm i -S react-hook-form uuidv4 constate lodash
 ```
 ### Todo
+- [ ] Make responsive design
 - [ ] Add backend
 - [ ] Place a website on the Internet
 
