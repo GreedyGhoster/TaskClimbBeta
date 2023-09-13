@@ -10,10 +10,12 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
+import useTheme from "@mui/material/styles/useTheme";
 
 export const AppSidebar = () => {
   const { projects, addProject } = useTodo();
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const theme = useTheme();
 
   const formMethods = useForm<AddToDoProjectFormValues>({
     defaultValues: {
@@ -43,7 +45,9 @@ export const AppSidebar = () => {
         flexDirection: "column",
         width: APP_SIDEBAR_WIDTH,
         maxWidth: APP_SIDEBAR_WIDTH,
-        backgroundColor: "#303030",
+        backgroundColor: `${
+          theme.palette.mode === "dark" ? "#303030" : "#fafafa"
+        }`,
         zIndex: 1,
         overflow: "auto",
       }}

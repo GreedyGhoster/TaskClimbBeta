@@ -10,6 +10,7 @@ import { useCallback } from "react";
 import { FormTextField } from "../../components/form";
 import Tooltip from "@mui/material/Tooltip";
 import TaskStatusItem from "../../components/tasks/TaskStatusItem";
+import useTheme from "@mui/material/styles/useTheme";
 
 export function TaskPage() {
   const { projectId, taskId } = useParams<{
@@ -17,6 +18,7 @@ export function TaskPage() {
     taskId: string;
   }>();
   const { findProject, findTask, editTask } = useTodo();
+  const theme = useTheme();
 
   const project = findProject(projectId);
   const task = findTask(projectId, taskId);
@@ -51,7 +53,9 @@ export function TaskPage() {
   return (
     <Box
       sx={{
-        backgroundColor: "#262626",
+        backgroundColor: `${
+          theme.palette.mode === "dark" ? "#262626" : "#f5f5f5"
+        }`,
         display: "flex",
         flexDirection: "column",
         borderRadius: "10px",
