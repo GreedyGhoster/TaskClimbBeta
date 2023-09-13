@@ -24,16 +24,16 @@ export function ProjectPage() {
     setSearchTerm(undefined);
   }, [projectId]);
 
-  if (!project) {
-    return <NotFound />;
-  }
-
   const countTasksByStatus = useMemo(() => {
     return {
       New: tasks.filter((task) => task.status === "New").length,
       Done: tasks.filter((task) => task.status === "Done").length,
     };
   }, [tasks]);
+
+  if (!project) {
+    return <NotFound />;
+  }
 
   return (
     <Box
