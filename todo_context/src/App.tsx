@@ -1,25 +1,12 @@
 import "./global.css";
 import { AppRouter } from "./routes";
-import {
-  Link as RouterLink,
-  LinkProps as RouterLinkProps,
-} from "react-router-dom";
 import { LinkProps } from "@mui/material/Link";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, createTheme } from "@mui/material";
-// import { theme } from "./custom/theme";
-import { createContext, forwardRef, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
+import LinkBehaviour from "./custom/theme";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
-
-const LinkBehaviour = forwardRef<
-  HTMLAnchorElement,
-  Omit<RouterLinkProps, "to"> & { href: RouterLinkProps["to"] }
->((props, ref) => {
-  const { href, ...other } = props;
-  // Map href (Material UI) -> to (react-router)
-  return <RouterLink ref={ref} to={href} {...other} />;
-});
 
 export default function App() {
   const matches = useMediaQuery("(min-width:1024px)");
