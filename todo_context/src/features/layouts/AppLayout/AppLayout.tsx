@@ -32,7 +32,12 @@ export function AppLayout() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{
+        display: "flex",
+        transition: "0.7s",
+      }}
+    >
       <UseTodoProvider>
         <CssBaseline />
         <AppBar position="fixed" open={open}>

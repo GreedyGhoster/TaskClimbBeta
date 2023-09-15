@@ -36,7 +36,13 @@ const AddTaskForm: FC<Props> = ({ projectId }) => {
 
   return (
     <FormProvider {...formMethods}>
-      <Box component={"form"} onSubmit={handleSubmit(handleSubmitForm)}>
+      <Box
+        sx={{
+          marginTop: "7px",
+        }}
+        component={"form"}
+        onSubmit={handleSubmit(handleSubmitForm)}
+      >
         <FormTextField
           label={"Add task"}
           inputProps={{ maxLength: 43 }}

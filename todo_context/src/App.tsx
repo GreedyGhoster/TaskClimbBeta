@@ -1,15 +1,27 @@
 import "./global.css";
 import { AppRouter } from "./routes";
 import { LinkProps } from "@mui/material/Link";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
 import LinkBehaviour from "./custom/theme";
 
+declare module "@mui/material/styles" {
+  interface BreakpointOverrides {
+    xs: false; // removes the `xs` breakpoint
+    sm: false;
+    md: false;
+    lg: false;
+    xl: false;
+    mobile: true; // adds the `mobile` breakpoint
+    tablet: true;
+    laptop: true;
+    desktop: true;
+  }
+}
+
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export default function App() {
-  const matches = useMediaQuery("(min-width:1024px)");
   const [mode, setMode] = useState<"light" | "dark">("dark");
   const colorMode = useMemo(
     () => ({
@@ -23,6 +35,14 @@ export default function App() {
   const theme = useMemo(
     () =>
       createTheme({
+        breakpoints: {
+          values: {
+            mobile: 0,
+            tablet: 640,
+            laptop: 1024,
+            desktop: 1200,
+          },
+        },
         palette: {
           mode,
           secondary: {
@@ -50,15 +70,11 @@ export default function App() {
 
   return (
     <>
-      {matches ? (
-        <ColorModeContext.Provider value={colorMode}>
-          <ThemeProvider theme={theme}>
-            <AppRouter />
-          </ThemeProvider>
-        </ColorModeContext.Provider>
-      ) : (
-        <h1>Try opening on a wider screen (1024px and higher)</h1>
-      )}
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <AppRouter />
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </>
   );
 }

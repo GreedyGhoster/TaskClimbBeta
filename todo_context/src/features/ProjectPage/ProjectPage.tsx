@@ -8,6 +8,40 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
+import styled from "@mui/material/styles/styled";
+
+const Root = styled("div")(({ theme }) => ({
+  height: "1.6rem",
+  margin: "auto",
+  marginTop: "0.5%",
+  display: "inline-flex",
+  borderBottom: "1px groove #b5b3b3",
+  gap: "1rem",
+  fontSize: "1.2rem",
+  textAlign: "center",
+  [theme.breakpoints.down("tablet")]: {
+    width: "30%",
+  },
+  [theme.breakpoints.down("desktop")]: {
+    width: "70%",
+  },
+  [theme.breakpoints.up("desktop")]: {
+    width: "50%",
+  },
+}));
+
+const Inputs = styled("div")(({ theme }) => ({
+  gap: "1rem",
+  textAlign: "center",
+  margin: "auto",
+  marginTop: "2.3%",
+  [theme.breakpoints.down("laptop")]: {
+    display: "table-column",
+  },
+  [theme.breakpoints.up("laptop")]: {
+    display: "inline-flex",
+  },
+}));
 
 export function ProjectPage() {
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -24,6 +58,7 @@ export function ProjectPage() {
     setSearchTerm(undefined);
   }, [projectId]);
 
+  // TODO: make asynchronous calculations
   const countTasksByStatus = useMemo(() => {
     return {
       New: tasks.filter((task) => task.status === "New").length,
@@ -52,37 +87,14 @@ export function ProjectPage() {
       >
         {project.title}
       </Typography>
-      <Box
-        sx={{
-          display: "inline-flex",
-          gap: "1rem",
-          textAlign: "center",
-          width: "auto",
-          margin: "auto",
-          marginTop: "2.5%",
-        }}
-        component={"div"}
-      >
+      <Inputs>
         <SearchTaskForm projectId={project.id} onSearch={handleSearch} />
         <AddTaskForm projectId={project.id} />
-      </Box>
-      <Box
-        sx={{
-          width: "45%",
-          height: "1.6rem",
-          margin: "auto",
-          marginTop: "0.5%",
-          display: "inline-flex",
-          borderBottom: "1px groove #b5b3b3",
-          gap: "1rem",
-          fontSize: "1.2rem",
-          textAlign: "center",
-        }}
-        component={"div"}
-      >
+      </Inputs>
+      <Root>
         <span>New: {countTasksByStatus.New}</span>
         <span>Done: {countTasksByStatus.Done}</span>
-      </Box>
+      </Root>
       <List
         sx={{
           width: "100%",
