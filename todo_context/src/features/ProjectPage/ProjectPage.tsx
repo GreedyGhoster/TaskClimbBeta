@@ -20,13 +20,13 @@ const Root = styled("div")(({ theme }) => ({
   fontSize: "1.2rem",
   textAlign: "center",
   [theme.breakpoints.down("tablet")]: {
-    width: "30%",
+    width: "100%",
   },
-  [theme.breakpoints.down("desktop")]: {
+  [theme.breakpoints.up("tablet")]: {
     width: "70%",
   },
   [theme.breakpoints.up("desktop")]: {
-    width: "50%",
+    width: "45%",
   },
 }));
 

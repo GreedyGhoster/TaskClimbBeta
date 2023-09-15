@@ -10,7 +10,24 @@ import { useCallback } from "react";
 import { FormTextField } from "../../components/form";
 import Tooltip from "@mui/material/Tooltip";
 import TaskStatusItem from "../../components/tasks/TaskStatusItem";
-import useTheme from "@mui/material/styles/useTheme";
+import styled from "@mui/material/styles/styled";
+
+const Root = styled("div")(({ theme }) => ({
+  backgroundColor: `${theme.palette.mode === "dark" ? "#262626" : "#f5f5f5"}`,
+  display: "flex",
+  flexDirection: "column",
+  borderRadius: "10px",
+  height: "auto",
+  margin: "auto",
+  padding: "0",
+  marginTop: "3%",
+  [theme.breakpoints.down("laptop")]: {
+    width: "87%",
+  },
+  [theme.breakpoints.up("laptop")]: {
+    width: "55%",
+  },
+}));
 
 export function TaskPage() {
   const { projectId, taskId } = useParams<{
@@ -18,7 +35,6 @@ export function TaskPage() {
     taskId: string;
   }>();
   const { findProject, findTask, editTask } = useTodo();
-  const theme = useTheme();
 
   const project = findProject(projectId);
   const task = findTask(projectId, taskId);
@@ -51,21 +67,7 @@ export function TaskPage() {
   );
 
   return (
-    <Box
-      sx={{
-        backgroundColor: `${
-          theme.palette.mode === "dark" ? "#262626" : "#f5f5f5"
-        }`,
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: "10px",
-        width: "45%",
-        height: "auto",
-        margin: "auto",
-        padding: "0",
-        marginTop: "3%",
-      }}
-    >
+    <Root>
       <Box
         sx={{
           display: "inline-flex",
@@ -138,6 +140,6 @@ export function TaskPage() {
           </Button>
         </Tooltip>
       </Box>
-    </Box>
+    </Root>
   );
 }

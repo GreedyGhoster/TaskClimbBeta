@@ -10,8 +10,6 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useContext, useState } from "react";
 import { ColorModeContext } from "../../../App";
 import Main from "../../../components/Main/Main";
@@ -79,13 +77,6 @@ export function AppLayout() {
           anchor="left"
           open={open}
         >
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
           <AppSidebar />
         </Drawer>
         <Main open={open}>
