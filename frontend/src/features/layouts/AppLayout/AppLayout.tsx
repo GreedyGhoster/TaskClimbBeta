@@ -13,13 +13,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useContext, useState } from "react";
 import { ColorModeContext } from "../../../App";
 import Main from "../../../components/Main/Main";
-import AppBar from "../../../components/AppBar/AppBar";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import DrawerHeader from "../../../components/DrawerHeader/Drawer";
-import MenuItem from "@mui/material/MenuItem";
-import Logout from "@mui/icons-material/Logout";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Menu from "@mui/material/Menu";
+import { AccountMenu } from "../../../components/AccountMenu";
+import { AppBar } from "../../../components/AppBar";
+import { DrawerHeader } from "../../../components/DrawerHeader";
 
 export function AppLayout() {
   const theme = useTheme();
@@ -32,15 +28,6 @@ export function AppLayout() {
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const openMenu = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   return (
@@ -85,31 +72,7 @@ export function AppLayout() {
               justifyContent: "flex-end",
             }}
           >
-            <IconButton onClick={handleClick}>
-              <AccountCircleIcon />
-            </IconButton>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={openMenu}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                  <AccountCircleIcon />
-                </ListItemIcon>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                  <Logout fontSize="small" />
-                </ListItemIcon>
-                Logout
-              </MenuItem>
-            </Menu>
+            <AccountMenu />
           </Toolbar>
         </AppBar>
         <Drawer
