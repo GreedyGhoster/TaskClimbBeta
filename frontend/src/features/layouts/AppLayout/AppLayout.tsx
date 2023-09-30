@@ -13,12 +13,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useContext, useState } from "react";
 import { ColorModeContext } from "../../../App";
 import Main from "../../../components/Main/Main";
-import AppBar from "../../../components/AppBar/AppBar";
-import DrawerHeader from "../../../components/DrawerHeader/Drawer";
+import { AccountMenu } from "../../../components/AccountMenu";
+import { AppBar } from "../../../components/AppBar";
+import { DrawerHeader } from "../../../components/DrawerHeader";
 
 export function AppLayout() {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const colorMode = useContext(ColorModeContext);
 
   const handleDrawerOpen = () => {
@@ -41,7 +42,8 @@ export function AppLayout() {
         <AppBar position="fixed" open={open}>
           <Toolbar
             sx={{
-              gap: 0.5,
+              gap: 0.6,
+              width: "50%",
             }}
           >
             <IconButton
@@ -62,6 +64,15 @@ export function AppLayout() {
                 <Brightness4Icon />
               )}
             </IconButton>
+          </Toolbar>
+          <Toolbar
+            sx={{
+              width: "50%",
+              display: "inline-flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <AccountMenu />
           </Toolbar>
         </AppBar>
         <Drawer
