@@ -19,7 +19,6 @@ export function Greeting() {
       >
         <Box component={"h2"}>Welcome</Box>
       </Box>
-
       <span>To get started, go to "Home" or create a new project</span>
     </Box>
   );
