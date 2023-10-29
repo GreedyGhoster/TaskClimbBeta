@@ -1,4 +1,4 @@
-# TaskClimb
+# TaskClimbBeta
 
 ## Quick Start
 The project was built using Vite and the "yarn" package manager
