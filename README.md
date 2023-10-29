@@ -4,7 +4,7 @@
 The project was built using Vite and the "yarn" package manager
 
 ```shell
-$ git clone https://github.com/IuanPR/TaskClimb.git
+$ git clone https://github.com/IuanPR/TaskClimbBeta.git
 $ cd todo_context
 $ yarn
 $ yarn dev
